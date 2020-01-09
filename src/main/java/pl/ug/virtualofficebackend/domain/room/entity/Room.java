@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
+import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
 import javax.persistence.*;
@@ -28,7 +29,8 @@ public class Room {
     private int x2Location;
     private int y2Location;
 
-    private String rotation;
+    @Enumerated(EnumType.STRING)
+    private Rotation rotation;
 
     @ManyToOne
     private RoomType type;
@@ -90,11 +92,11 @@ public class Room {
         this.y2Location = y2Location;
     }
 
-    public String getRotation() {
+    public Rotation getRotation() {
         return rotation;
     }
 
-    public void setRotation(String rotation) {
+    public void setRotation(Rotation rotation) {
         this.rotation = rotation;
     }
 

@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.decoration.entity;
 
+import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class Decoration {
     private int x2Location;
     private int y2Location;
 
-    private String rotation;
+    @Enumerated(EnumType.STRING)
+    private Rotation rotation;
 
     @ManyToOne
     private DecorationType type;
@@ -89,11 +91,11 @@ public class Decoration {
         this.y2Location = y2Location;
     }
 
-    public String getRotation() {
+    public Rotation getRotation() {
         return rotation;
     }
 
-    public void setRotation(String rotation) {
+    public void setRotation(Rotation rotation) {
         this.rotation = rotation;
     }
     //endregion

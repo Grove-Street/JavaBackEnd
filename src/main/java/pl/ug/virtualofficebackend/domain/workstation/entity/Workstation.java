@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.workstation.entity;
 
+import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 
@@ -32,7 +33,8 @@ public class Workstation {
     private int x2Location;
     private int y2Location;
 
-    private String rotation;
+    @Enumerated(EnumType.STRING)
+    private Rotation rotation;
 
     @OneToMany(mappedBy = "workstation")
     private List<Item> itemList;
@@ -89,11 +91,11 @@ public class Workstation {
         this.y2Location = y2Location;
     }
 
-    public String getRotation() {
+    public Rotation getRotation() {
         return rotation;
     }
 
-    public void setRotation(String rotation) {
+    public void setRotation(Rotation rotation) {
         this.rotation = rotation;
     }
 
