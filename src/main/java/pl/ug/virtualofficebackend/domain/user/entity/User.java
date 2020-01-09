@@ -3,13 +3,12 @@ package pl.ug.virtualofficebackend.domain.user.entity;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity(name = "office_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private long id;
 
     private String email;
     private String name;
@@ -20,11 +19,11 @@ public class User {
     private Workstation workstation;
 
     //region GET SET
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
