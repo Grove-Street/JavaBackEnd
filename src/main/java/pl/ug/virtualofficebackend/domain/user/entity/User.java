@@ -1,6 +1,6 @@
 package pl.ug.virtualofficebackend.domain.user.entity;
 
-import pl.ug.virtualofficebackend.domain.entity.Workstation;
+import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
 import java.util.UUID;
