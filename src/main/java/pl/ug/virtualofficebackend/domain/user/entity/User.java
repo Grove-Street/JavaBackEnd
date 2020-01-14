@@ -1,5 +1,7 @@
 package pl.ug.virtualofficebackend.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
@@ -24,8 +26,13 @@ public class User {
     @NotBlank(message = "Surname is mandatory")
     private String surname;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Workstation workstation;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -74,6 +81,14 @@ public class User {
 
     public void setWorkstation(Workstation workstation) {
         this.workstation = workstation;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 

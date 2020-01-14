@@ -1,6 +1,8 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.Rotation;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
 import javax.persistence.*;
@@ -35,6 +37,10 @@ public class Room {
 
     @ManyToOne
     private RoomType type;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -107,6 +113,14 @@ public class Room {
 
     public void setType(RoomType type) {
         this.type = type;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 

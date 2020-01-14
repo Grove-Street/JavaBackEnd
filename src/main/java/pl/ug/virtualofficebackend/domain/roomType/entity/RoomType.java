@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.roomType.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class RoomType {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "type")
     private List<Room> roomList;
 

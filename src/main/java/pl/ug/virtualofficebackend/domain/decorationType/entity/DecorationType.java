@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.decorationType.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class DecorationType {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "type")
     private List<Decoration> decorationList;
 

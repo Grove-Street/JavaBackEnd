@@ -1,7 +1,9 @@
 package pl.ug.virtualofficebackend.domain.decoration.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +35,10 @@ public class Decoration {
 
     @ManyToOne
     private DecorationType type;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -97,6 +103,14 @@ public class Decoration {
 
     public void setRotation(Rotation rotation) {
         this.rotation = rotation;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 }

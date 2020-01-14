@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.itemType.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class ItemType {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "type")
     private List<Item> itemList;
 

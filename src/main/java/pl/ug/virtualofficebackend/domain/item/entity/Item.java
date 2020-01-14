@@ -1,6 +1,8 @@
 package pl.ug.virtualofficebackend.domain.item.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.domain.itemType.entity.ItemType;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
@@ -18,8 +20,13 @@ public class Item {
     @ManyToOne
     private ItemType type;
 
+    @JsonIgnore
     @ManyToOne
     private Workstation workstation;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -52,6 +59,14 @@ public class Item {
 
     public void setWorkstation(Workstation workstation) {
         this.workstation = workstation;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 
