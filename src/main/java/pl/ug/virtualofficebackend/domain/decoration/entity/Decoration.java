@@ -4,6 +4,7 @@ import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity(name = "decoration")
 public class Decoration {
@@ -11,24 +12,23 @@ public class Decoration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     /*
-        Na ten moment start i koniec przedmiotu
-        wszystko bedzie traktowane jako kwadrat
+        Starts at (x1, y1)
+        Ends at (x2, y2)
 
-        np. doniczka zaczyna sie w (0,0) i konczy w (1,1)
-
-        North/South/West/East
+        Every Decoration is displayed as rectangle
      */
 
-    // (x1,y1) i (x2,y2)
     private int x1Location;
     private int y1Location;
     private int x2Location;
     private int y2Location;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Rotation is mandatory")
     private Rotation rotation;
 
     @ManyToOne
@@ -99,5 +99,4 @@ public class Decoration {
         this.rotation = rotation;
     }
     //endregion
-
 }

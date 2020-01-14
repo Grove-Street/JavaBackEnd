@@ -3,6 +3,7 @@ package pl.ug.virtualofficebackend.domain.decorationType.entity;
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "decoration_type")
@@ -11,6 +12,7 @@ public class DecorationType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @OneToMany(mappedBy = "type")

@@ -3,6 +3,7 @@ package pl.ug.virtualofficebackend.domain.itemType.entity;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "item_type")
@@ -11,6 +12,7 @@ public class ItemType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @OneToMany(mappedBy = "type")

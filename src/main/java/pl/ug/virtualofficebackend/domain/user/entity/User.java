@@ -3,6 +3,8 @@ package pl.ug.virtualofficebackend.domain.user.entity;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity(name = "office_user")
 public class User {
@@ -10,9 +12,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Email
+    @NotBlank(message = "Email is mandatory")
     private String email;
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
     private String secondName;
+
+    @NotBlank(message = "Surname is mandatory")
     private String surname;
 
     @OneToOne(mappedBy = "user")

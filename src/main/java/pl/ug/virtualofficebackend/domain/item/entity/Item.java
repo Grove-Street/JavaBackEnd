@@ -4,6 +4,7 @@ import pl.ug.virtualofficebackend.domain.itemType.entity.ItemType;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity(name = "item")
 public class Item {
@@ -11,6 +12,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @ManyToOne

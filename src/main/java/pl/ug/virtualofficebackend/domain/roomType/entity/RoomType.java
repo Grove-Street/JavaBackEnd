@@ -3,6 +3,7 @@ package pl.ug.virtualofficebackend.domain.roomType.entity;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "room_type")
@@ -11,6 +12,7 @@ public class RoomType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @OneToMany(mappedBy = "type")
