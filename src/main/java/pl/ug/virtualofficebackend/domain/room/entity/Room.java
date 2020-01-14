@@ -1,9 +1,12 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.Rotation;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity(name = "room")
 public class Room {
@@ -11,29 +14,33 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
     private int capacity;
 
     /*
-        Na ten moment start i koniec przedmiotu
-        wszystko bedzie traktowane jako kwadrat
+        Starts at (x1, y1)
+        Ends at (x2, y2)
 
-        np. pokoj zaczyna sie w (0,0) i konczy w (1,1)
-
-        North/South/West/East
+        Every Room is displayed as rectangle
      */
 
-    // (x1,y1) i (x2,y2)
     private int x1Location;
     private int y1Location;
     private int x2Location;
     private int y2Location;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Rotation is mandatory")
     private Rotation rotation;
 
     @ManyToOne
     private RoomType type;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -106,6 +113,14 @@ public class Room {
 
     public void setType(RoomType type) {
         this.type = type;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 

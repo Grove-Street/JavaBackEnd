@@ -1,10 +1,13 @@
 package pl.ug.virtualofficebackend.domain.workstation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.Rotation;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "workstation")
@@ -13,18 +16,14 @@ public class Workstation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     /*
-        Workstation sklada sie z kilku itemow
-        np. biurko, komputer, fotel - mozna dopisal validator
+        Starts at (x1, y1)
+        Ends at (x2, y2)
 
-        Na ten moment start i koniec przedmiotu
-        wszystko bedzie traktowane jako kwadrat
-
-        np. biurko zaczyna sie w (0,0) i konczy w (1,1)
-
-        North/South/West/East
+        Every Workstation is displayed as rectangle
      */
 
     // (x1,y1) i (x2,y2)
@@ -34,13 +33,19 @@ public class Workstation {
     private int y2Location;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Rotation is mandatory")
     private Rotation rotation;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "workstation")
     private List<Item> itemList;
 
     @OneToOne
     private User user;
+
+    @JsonIgnore
+    @ManyToOne
+    private Office office;
 
     //region GET SET
     public long getId() {
@@ -113,6 +118,14 @@ public class Workstation {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
     //endregion
 
