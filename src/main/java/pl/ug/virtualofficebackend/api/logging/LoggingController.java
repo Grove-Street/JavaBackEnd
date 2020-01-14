@@ -13,4 +13,5 @@ public class LoggingController {
     public LoggingController(UserService userService) {
         this.userService = userService;
     }
+
 }

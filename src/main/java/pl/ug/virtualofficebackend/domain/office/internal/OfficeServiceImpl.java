@@ -10,22 +10,18 @@ import java.util.List;
 
 @Service
 public class OfficeServiceImpl implements OfficeService {
-    private OfficeRepository repository;
+    private OfficeRepository officeRepository;
 
     @Autowired
-    public OfficeServiceImpl(OfficeRepository repository) {
-        this.repository = repository;
+    public OfficeServiceImpl(OfficeRepository officeRepository) {
+        this.officeRepository = officeRepository;
     }
 
     public Office get(long id) {
-        return this.repository.findById(id).orElse(null);
+        return this.officeRepository.findById(id).orElse(null);
     }
 
     public List<Office> getAll() {
-        List<Office> offices = new ArrayList<>();
-
-        this.repository.findAll().forEach(offices::add);
-
-        return offices;
+        return new ArrayList<>(this.officeRepository.findAll());
     }
 }
