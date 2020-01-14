@@ -33,7 +33,6 @@ public class Workstation {
     private int y2Location;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Rotation is mandatory")
     private Rotation rotation;
 
     @JsonIgnore

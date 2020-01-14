@@ -7,14 +7,14 @@ public enum Rotation {
     EAST("EAST"),
     ;
 
-    private final String text;
+    private final String value;
 
-    Rotation(final String text) {
-        this.text = text;
+    Rotation(final String value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return text;
+        return value;
     }
 }
