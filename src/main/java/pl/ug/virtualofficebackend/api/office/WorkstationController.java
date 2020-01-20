@@ -44,7 +44,7 @@ public class WorkstationController {
     public ResponseEntity<Workstation> postWorkstation(RequestEntity<Workstation> requestWorkstation) {
         Workstation workstation = requestWorkstation.getBody();
 
-        if(workstation != null && this.workstationService.add(workstation)) {
+        if (workstation != null && this.workstationService.add(workstation)) {
             return new ResponseEntity<>(workstation, HttpStatus.OK);
         }
 

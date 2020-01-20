@@ -1,7 +1,7 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.ug.virtualofficebackend.common.Rotation;
+import pl.ug.virtualofficebackend.common.model.Rotation;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 

@@ -1,7 +1,7 @@
 package pl.ug.virtualofficebackend.domain.workstation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.ug.virtualofficebackend.common.Rotation;
+import pl.ug.virtualofficebackend.common.model.Rotation;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
