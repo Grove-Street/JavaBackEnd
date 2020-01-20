@@ -5,35 +5,38 @@ import org.springframework.stereotype.Service;
 import pl.ug.virtualofficebackend.domain.workstation.boundary.WorkstationService;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
 public class WorkstationServiceImpl implements WorkstationService {
-   private WorkstationRepository workstationRepository;
+    private WorkstationRepository workstationRepository;
 
-   @Autowired
-   public WorkstationServiceImpl(WorkstationRepository workstationRepository) {
-      this.workstationRepository = workstationRepository;
-   }
+    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
 
-   public boolean add(Workstation workstation) {
-      try {
-         this.workstationRepository.save(workstation);
+    @Autowired
+    public WorkstationServiceImpl(WorkstationRepository workstationRepository) {
+        this.workstationRepository = workstationRepository;
+    }
 
-         return true;
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
+    public Workstation save(@Valid Workstation workstation) {
+        return this.workstationRepository.save(workstation);
+    }
 
-      return false;
-   }
+    public Workstation get(long id) {
+        return this.workstationRepository.findById(id).orElse(null);
+    }
 
-   public Workstation get(long id) {
-      return this.workstationRepository.findById(id).orElse(null);
-   }
+    public List<Workstation> getAll() {
+        return this.workstationRepository.findAll();
+    }
 
-   public List<Workstation> getAll() {
-      return new ArrayList<>(this.workstationRepository.findAll());
-   }
+    public Workstation put(long id, @Valid Workstation workstation) {
+        workstation.setId(id);
+        return this.workstationRepository.save(workstation);
+    }
+
+    public void delete(long id) {
+        this.workstationRepository.deleteById(id);
+    }
 }

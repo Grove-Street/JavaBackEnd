@@ -6,10 +6,18 @@ import java.util.List;
 
 public interface WorkstationService {
 
-    boolean add(Workstation workstation);
+    // CREATE
+    Workstation save(Workstation workstation);
 
+    // READ
     Workstation get(long id);
 
     List<Workstation> getAll();
+
+    // UPDATE
+    Workstation put(long id, Workstation workstation);
+
+    // DELETE
+    void delete(long id);
 
 }

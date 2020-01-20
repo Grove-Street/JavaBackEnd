@@ -18,6 +18,7 @@ public class Item {
     private String name;
 
     @ManyToOne
+    @NotBlank(message = "Item type is mandatory")
     private ItemType type;
 
     @JsonIgnore

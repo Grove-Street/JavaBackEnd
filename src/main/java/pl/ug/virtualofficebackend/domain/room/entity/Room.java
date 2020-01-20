@@ -2,13 +2,18 @@ package pl.ug.virtualofficebackend.domain.room.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.model.Rotation;
+import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Entity(name = "room")
+@LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
+        x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
+        message = "Invalid location. ")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +22,7 @@ public class Room {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @Min(1)
     private int capacity;
 
     /*
@@ -26,16 +32,22 @@ public class Room {
         Every Room is displayed as rectangle
      */
 
+    //region Position
     private int x1Location;
+
     private int y1Location;
+
     private int x2Location;
+
     private int y2Location;
+    //endregion
 
     @Enumerated(EnumType.STRING)
     @NotBlank(message = "Rotation is mandatory")
     private Rotation rotation;
 
     @ManyToOne
+    @NotBlank(message = "Room type is mandatory")
     private RoomType type;
 
     @JsonIgnore
@@ -123,5 +135,4 @@ public class Room {
         this.office = office;
     }
     //endregion
-
 }

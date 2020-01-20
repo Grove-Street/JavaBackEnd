@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.workstation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.common.model.Rotation;
+import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
@@ -11,6 +12,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "workstation")
+@LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
+        x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
+        message = "Invalid location. ")
 public class Workstation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +30,15 @@ public class Workstation {
         Every Workstation is displayed as rectangle
      */
 
-    // (x1,y1) i (x2,y2)
+    //region Position
     private int x1Location;
+
     private int y1Location;
+
     private int x2Location;
+
     private int y2Location;
+    //endregion
 
     @Enumerated(EnumType.STRING)
     private Rotation rotation;
