@@ -7,6 +7,7 @@ import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "item")
 public class Item {
@@ -18,6 +19,7 @@ public class Item {
     private String name;
 
     @ManyToOne
+    @NotNull(message = "Item type is mandatory")
     private ItemType type;
 
     @JsonIgnore

@@ -1,14 +1,19 @@
 package pl.ug.virtualofficebackend.domain.decoration.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.ug.virtualofficebackend.common.Rotation;
+import pl.ug.virtualofficebackend.common.model.Rotation;
+import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "decoration")
+@LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
+        x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
+        message = "Invalid location. ")
 public class Decoration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,19 +26,25 @@ public class Decoration {
         Starts at (x1, y1)
         Ends at (x2, y2)
 
-        Every Decoration is displayed as rectangle
+        Every Decoration is displayed as square.
      */
 
-    private int x1Location;
-    private int y1Location;
-    private int x2Location;
-    private int y2Location;
+    //region Position
+    private int x1Position;
+
+    private int y1Position;
+
+    private int x2Position;
+
+    private int y2Position;
+    //endregion
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Rotation is mandatory")
+    @NotNull(message = "Rotation is mandatory")
     private Rotation rotation;
 
     @ManyToOne
+    @NotNull(message = "Decoration type is mandatory")
     private DecorationType type;
 
     @JsonIgnore
@@ -65,36 +76,36 @@ public class Decoration {
         this.type = decorationType;
     }
 
-    public int getX1Location() {
-        return x1Location;
+    public int getX1Position() {
+        return x1Position;
     }
 
-    public void setX1Location(int x1Location) {
-        this.x1Location = x1Location;
+    public void setX1Position(int x1Position) {
+        this.x1Position = x1Position;
     }
 
-    public int getY1Location() {
-        return y1Location;
+    public int getY1Position() {
+        return y1Position;
     }
 
-    public void setY1Location(int y1Location) {
-        this.y1Location = y1Location;
+    public void setY1Position(int y1Position) {
+        this.y1Position = y1Position;
     }
 
-    public int getX2Location() {
-        return x2Location;
+    public int getX2Position() {
+        return x2Position;
     }
 
-    public void setX2Location(int x2Location) {
-        this.x2Location = x2Location;
+    public void setX2Position(int x2Position) {
+        this.x2Position = x2Position;
     }
 
-    public int getY2Location() {
-        return y2Location;
+    public int getY2Position() {
+        return y2Position;
     }
 
-    public void setY2Location(int y2Location) {
-        this.y2Location = y2Location;
+    public void setY2Position(int y2Position) {
+        this.y2Position = y2Position;
     }
 
     public Rotation getRotation() {

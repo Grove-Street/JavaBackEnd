@@ -1,4 +1,4 @@
-package pl.ug.virtualofficebackend.common;
+package pl.ug.virtualofficebackend.common.model;
 
 public enum Rotation {
     NORTH("NORTH"),

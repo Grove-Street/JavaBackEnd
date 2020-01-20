@@ -12,12 +12,10 @@ import pl.ug.virtualofficebackend.domain.user.entity.User;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private UserValidator userValidator;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserValidator userValidator) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userValidator = userValidator;
     }
 
     public boolean add(User user) {
