@@ -25,7 +25,7 @@ public class WorkstationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(this.workstationService.save(workstation.getBody()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(this.workstationService.save(workstation.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/api/workstation")

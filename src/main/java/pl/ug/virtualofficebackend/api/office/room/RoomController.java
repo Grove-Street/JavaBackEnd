@@ -25,7 +25,7 @@ public class RoomController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(this.roomService.save(room.getBody()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(this.roomService.save(room.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/api/room")

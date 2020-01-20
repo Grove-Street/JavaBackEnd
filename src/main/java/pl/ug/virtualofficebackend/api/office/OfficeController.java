@@ -25,7 +25,7 @@ public class OfficeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(this.officeService.save(office.getBody()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(this.officeService.save(office.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/api/office")

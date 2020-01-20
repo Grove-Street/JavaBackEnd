@@ -25,7 +25,7 @@ public class ItemTypeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(this.itemTypeService.save(itemType.getBody()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(this.itemTypeService.save(itemType.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/api/itemType")

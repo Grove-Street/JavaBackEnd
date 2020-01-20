@@ -25,7 +25,7 @@ public class DecorationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(this.decorationService.save(decoration.getBody()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(this.decorationService.save(decoration.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/api/decoration")
