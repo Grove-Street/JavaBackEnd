@@ -1,7 +1,6 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.ug.virtualofficebackend.common.model.Rotation;
 import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
@@ -9,6 +8,7 @@ import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "room")
 @LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
@@ -19,10 +19,10 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Name is mandatory. ")
     private String name;
 
-    @Min(1)
+    @Min(value = 1, message = "At least one person capacity is required. ")
     private int capacity;
 
     /*
@@ -33,21 +33,17 @@ public class Room {
      */
 
     //region Position
-    private int x1Location;
+    private int x1Position;
 
-    private int y1Location;
+    private int y1Position;
 
-    private int x2Location;
+    private int x2Position;
 
-    private int y2Location;
+    private int y2Position;
     //endregion
 
-    @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Rotation is mandatory")
-    private Rotation rotation;
-
     @ManyToOne
-    @NotBlank(message = "Room type is mandatory")
+    @NotNull(message = "Room type is mandatory. ")
     private RoomType type;
 
     @JsonIgnore
@@ -79,44 +75,36 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public int getX1Location() {
-        return x1Location;
+    public int getX1Position() {
+        return x1Position;
     }
 
-    public void setX1Location(int x1Location) {
-        this.x1Location = x1Location;
+    public void setX1Position(int x1Position) {
+        this.x1Position = x1Position;
     }
 
-    public int getY1Location() {
-        return y1Location;
+    public int getY1Position() {
+        return y1Position;
     }
 
-    public void setY1Location(int y1Location) {
-        this.y1Location = y1Location;
+    public void setY1Position(int y1Position) {
+        this.y1Position = y1Position;
     }
 
-    public int getX2Location() {
-        return x2Location;
+    public int getX2Position() {
+        return x2Position;
     }
 
-    public void setX2Location(int x2Location) {
-        this.x2Location = x2Location;
+    public void setX2Position(int x2Position) {
+        this.x2Position = x2Position;
     }
 
-    public int getY2Location() {
-        return y2Location;
+    public int getY2Position() {
+        return y2Position;
     }
 
-    public void setY2Location(int y2Location) {
-        this.y2Location = y2Location;
-    }
-
-    public Rotation getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(Rotation rotation) {
-        this.rotation = rotation;
+    public void setY2Position(int y2Position) {
+        this.y2Position = y2Position;
     }
 
     public RoomType getType() {

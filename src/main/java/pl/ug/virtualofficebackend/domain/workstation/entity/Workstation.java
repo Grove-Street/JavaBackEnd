@@ -31,14 +31,15 @@ public class Workstation {
      */
 
     //region Position
-    private int x1Location;
+    private int x1Position;
 
-    private int y1Location;
+    private int y1Position;
 
-    private int x2Location;
+    private int x2Position;
 
-    private int y2Location;
+    private int y2Position;
     //endregion
+
 
     @Enumerated(EnumType.STRING)
     private Rotation rotation;
@@ -71,36 +72,36 @@ public class Workstation {
         this.name = name;
     }
 
-    public int getX1Location() {
-        return x1Location;
+    public int getX1Position() {
+        return x1Position;
     }
 
-    public void setX1Location(int x1Location) {
-        this.x1Location = x1Location;
+    public void setX1Position(int x1Position) {
+        this.x1Position = x1Position;
     }
 
-    public int getY1Location() {
-        return y1Location;
+    public int getY1Position() {
+        return y1Position;
     }
 
-    public void setY1Location(int y1Location) {
-        this.y1Location = y1Location;
+    public void setY1Position(int y1Position) {
+        this.y1Position = y1Position;
     }
 
-    public int getX2Location() {
-        return x2Location;
+    public int getX2Position() {
+        return x2Position;
     }
 
-    public void setX2Location(int x2Location) {
-        this.x2Location = x2Location;
+    public void setX2Position(int x2Position) {
+        this.x2Position = x2Position;
     }
 
-    public int getY2Location() {
-        return y2Location;
+    public int getY2Position() {
+        return y2Position;
     }
 
-    public void setY2Location(int y2Location) {
-        this.y2Location = y2Location;
+    public void setY2Position(int y2Position) {
+        this.y2Position = y2Position;
     }
 
     public Rotation getRotation() {
