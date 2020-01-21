@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class OfficeController {
     private OfficeService officeService;

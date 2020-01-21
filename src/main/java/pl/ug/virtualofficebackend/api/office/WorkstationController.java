@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class WorkstationController {
     private WorkstationService workstationService;

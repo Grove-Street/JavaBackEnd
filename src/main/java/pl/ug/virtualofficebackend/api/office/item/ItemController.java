@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.item.entity.Item;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class ItemController {
     private ItemService itemService;

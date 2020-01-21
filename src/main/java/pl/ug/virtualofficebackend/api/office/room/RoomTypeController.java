@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class RoomTypeController {
     private RoomTypeService roomTypeService;

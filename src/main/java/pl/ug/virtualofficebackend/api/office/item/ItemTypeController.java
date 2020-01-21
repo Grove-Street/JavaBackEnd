@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.itemType.entity.ItemType;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class ItemTypeController {
     private ItemTypeService itemTypeService;

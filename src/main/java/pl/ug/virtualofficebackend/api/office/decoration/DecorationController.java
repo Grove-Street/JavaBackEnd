@@ -10,6 +10,7 @@ import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class DecorationController {
     private DecorationService decorationService;
