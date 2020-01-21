@@ -46,15 +46,15 @@ public class WorkstationController {
     }
 
     @PutMapping("/api/workstation/{id}")
-    public ResponseEntity<Workstation> put(@PathVariable String id, RequestEntity<Workstation> decoration) {
-        if (decoration.getBody() == null) {
+    public ResponseEntity<Workstation> put(@PathVariable String id, RequestEntity<Workstation> workstation) {
+        if (workstation.getBody() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         try {
             long longId = Long.parseLong(id);
 
-            return new ResponseEntity<>(this.workstationService.put(longId, decoration.getBody()), HttpStatus.OK);
+            return new ResponseEntity<>(this.workstationService.put(longId, workstation.getBody()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

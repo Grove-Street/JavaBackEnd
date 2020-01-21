@@ -14,6 +14,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Username is mandatory")
+    private String username;
+
     @Email
     @NotBlank(message = "Email is mandatory")
     private String email;
@@ -25,6 +28,9 @@ public class User {
 
     @NotBlank(message = "Surname is mandatory")
     private String surname;
+
+    @NotBlank(message = "Country is mandatory")
+    public String country;
 
     @JsonIgnore
     @OneToOne(mappedBy = "user")
@@ -41,6 +47,14 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -75,6 +89,14 @@ public class User {
         this.surname = surname;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Workstation getWorkstation() {
         return workstation;
     }
@@ -91,5 +113,4 @@ public class User {
         this.office = office;
     }
     //endregion
-
 }
