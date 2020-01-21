@@ -2,7 +2,6 @@ package pl.ug.virtualofficebackend.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
@@ -21,12 +20,8 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/api/user")
-    public ResponseEntity<User> post(RequestEntity<User> user) {
-        if (user.getBody() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.userService.save(user.getBody()), HttpStatus.OK);
+    public ResponseEntity<User> post(@RequestBody User user) {
+        return new ResponseEntity<>(this.userService.save(user), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -37,43 +32,29 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping("/api/user/{id}")
-    public ResponseEntity<User> get(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.userService.get(longId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<User> get(@PathVariable Long id) {
+        return new ResponseEntity<>(this.userService.get(id), HttpStatus.OK);
     }
 
     @CrossOrigin
     @PutMapping("/api/user/{id}")
-    public ResponseEntity<User> put(@PathVariable String id, RequestEntity<User> user) {
-        if (user.getBody() == null) {
+    public ResponseEntity<User> put(@PathVariable Long id, @RequestBody User user) {
+        if(this.userService.get(id) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.userService.put(longId, user.getBody()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(this.userService.put(id, user), HttpStatus.OK);
     }
 
     @CrossOrigin
     @DeleteMapping("/api/user/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            this.userService.delete(longId);
-
-            return new ResponseEntity<>("User deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        if(this.userService.get(id) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        this.userService.delete(id);
+
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 }
