@@ -10,7 +10,6 @@ import pl.ug.virtualofficebackend.domain.user.entity.User;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class UserController {
     private UserService userService;
@@ -20,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin
     @PostMapping("/api/user")
     public ResponseEntity<User> post(RequestEntity<User> user) {
         if (user.getBody() == null) {
@@ -29,11 +29,13 @@ public class UserController {
         return new ResponseEntity<>(this.userService.save(user.getBody()), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/user")
     public ResponseEntity<List<User>> get() {
         return new ResponseEntity<>(this.userService.getAll(), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/user/{id}")
     public ResponseEntity<User> get(@PathVariable String id) {
         try {
@@ -45,6 +47,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/api/user/{id}")
     public ResponseEntity<User> put(@PathVariable String id, RequestEntity<User> user) {
         if (user.getBody() == null) {
@@ -60,6 +63,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<String> delete(@PathVariable String id) {
         try {
