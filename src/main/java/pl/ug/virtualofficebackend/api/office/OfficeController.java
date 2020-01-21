@@ -2,7 +2,6 @@ package pl.ug.virtualofficebackend.api.office;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.office.boundary.OfficeService;
@@ -10,7 +9,6 @@ import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class OfficeController {
     private OfficeService officeService;
@@ -20,56 +18,43 @@ public class OfficeController {
         this.officeService = officeService;
     }
 
+    @CrossOrigin
     @PostMapping("/api/office")
-    public ResponseEntity<Office> post(RequestEntity<Office> office) {
-        if (office.getBody() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.officeService.save(office.getBody()), HttpStatus.OK);
+    public ResponseEntity<Office> post(@RequestBody Office office) {
+        return new ResponseEntity<>(this.officeService.save(office), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/office")
     public ResponseEntity<List<Office>> get() {
         return new ResponseEntity<>(this.officeService.getAll(), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/office/{id}")
-    public ResponseEntity<Office> get(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.officeService.get(longId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Office> get(@PathVariable Long id) {
+        return new ResponseEntity<>(this.officeService.get(id), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PutMapping("/api/office/{id}")
-    public ResponseEntity<Office> put(@PathVariable String id, RequestEntity<Office> office) {
-        if (office.getBody() == null) {
+    public ResponseEntity<Office> put(@PathVariable Long id, @RequestBody Office office) {
+        if (this.officeService.get(id) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.officeService.put(longId, office.getBody()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(this.officeService.put(id, office), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping("/api/office/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            this.officeService.delete(longId);
-
-            return new ResponseEntity<>("Office deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        if (this.officeService.get(id) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        this.officeService.delete(id);
+
+        return new ResponseEntity<>("Office deleted", HttpStatus.OK);
     }
 }

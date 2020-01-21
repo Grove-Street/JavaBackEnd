@@ -14,4 +14,6 @@ public class LoggingController {
         this.userService = userService;
     }
 
+    // TODO: Find motivation to finish this project, because there is nothing except one big mess here...
+
 }

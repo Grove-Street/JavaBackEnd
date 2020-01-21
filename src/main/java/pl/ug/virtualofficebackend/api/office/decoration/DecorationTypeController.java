@@ -2,7 +2,6 @@ package pl.ug.virtualofficebackend.api.office.decoration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.decorationType.boundary.DecorationTypeService;
@@ -10,7 +9,6 @@ import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class DecorationTypeController {
     private DecorationTypeService decorationTypeService;
@@ -20,56 +18,43 @@ public class DecorationTypeController {
         this.decorationTypeService = decorationTypeService;
     }
 
+    @CrossOrigin
     @PostMapping("/api/decorationType")
-    public ResponseEntity<DecorationType> post(RequestEntity<DecorationType> decorationType) {
-        if (decorationType.getBody() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.decorationTypeService.save(decorationType.getBody()), HttpStatus.OK);
+    public ResponseEntity<DecorationType> post(@RequestBody DecorationType decorationType) {
+        return new ResponseEntity<>(this.decorationTypeService.save(decorationType), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/decorationType")
     public ResponseEntity<List<DecorationType>> get() {
         return new ResponseEntity<>(this.decorationTypeService.getAll(), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping("/api/decorationType/{id}")
-    public ResponseEntity<DecorationType> get(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.decorationTypeService.get(longId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<DecorationType> get(@PathVariable Long id) {
+        return new ResponseEntity<>(this.decorationTypeService.get(id), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PutMapping("/api/decorationType/{id}")
-    public ResponseEntity<DecorationType> put(@PathVariable String id, RequestEntity<DecorationType> decorationType) {
-        if (decorationType.getBody() == null) {
+    public ResponseEntity<DecorationType> put(@PathVariable Long id, @RequestBody DecorationType decorationType) {
+        if (this.decorationTypeService.get(id) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            long longId = Long.parseLong(id);
-
-            return new ResponseEntity<>(this.decorationTypeService.put(longId, decorationType.getBody()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(this.decorationTypeService.put(id, decorationType), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping("/api/decorationType/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
-        try {
-            long longId = Long.parseLong(id);
-
-            this.decorationTypeService.delete(longId);
-
-            return new ResponseEntity<>("Decoration type deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        if (this.decorationTypeService.get(id) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        this.decorationTypeService.delete(id);
+
+        return new ResponseEntity<>("Decoration type deleted", HttpStatus.OK);
     }
 }

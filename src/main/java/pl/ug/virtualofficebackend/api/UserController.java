@@ -39,7 +39,7 @@ public class UserController {
     @CrossOrigin
     @PutMapping("/api/user/{id}")
     public ResponseEntity<User> put(@PathVariable Long id, @RequestBody User user) {
-        if(this.userService.get(id) == null) {
+        if (this.userService.get(id) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -49,7 +49,7 @@ public class UserController {
     @CrossOrigin
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        if(this.userService.get(id) == null) {
+        if (this.userService.get(id) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
