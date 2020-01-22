@@ -14,8 +14,8 @@
     <section class="bg-dark">
         <div class="container bg-primary">
             <div class="row bg-secondary">
-                <div class="col-8 offset-2 bg-danger">
-                    <h1>Witaj<span th:text="${users}">user</span></h1>
+                <div th:each="user : ${users}" class="col-1 bg-danger">
+                    <h1>Witaj<span th:text="${user.name}">user</span></h1>
                 </div>
             </div>
         </div>
