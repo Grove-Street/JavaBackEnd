@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
+import pl.ug.virtualofficebackend.domain.security.entity.Role;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import javax.persistence.*;
@@ -10,35 +11,30 @@ import javax.validation.constraints.NotBlank;
 
 @Entity(name = "office_user")
 public class User {
+    @NotBlank(message = "Country is mandatory")
+    public String country;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @NotBlank(message = "Username is mandatory")
     private String username;
-
     @Email
     @NotBlank(message = "Email is mandatory")
     private String email;
-
     @NotBlank(message = "Name is mandatory")
     private String name;
-
     private String secondName;
-
+    private String password;
     @NotBlank(message = "Surname is mandatory")
     private String surname;
-
-    @NotBlank(message = "Country is mandatory")
-    public String country;
-
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Workstation workstation;
-
     @JsonIgnore
     @ManyToOne
     private Office office;
+    @ManyToOne
+    private Role role;
 
     //region GET SET
     public long getId() {
@@ -112,5 +108,20 @@ public class User {
     public void setOffice(Office office) {
         this.office = office;
     }
-    //endregion
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
