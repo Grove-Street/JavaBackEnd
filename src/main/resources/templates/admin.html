@@ -11,12 +11,65 @@
     <title>Admin Panel</title>
 </head>
 <body class="bg-light">
-    <section class="bg-dark">
-        <div class="container bg-primary">
-            <div class="row bg-secondary">
-                <div th:each="user : ${users}" class="col-1 bg-danger">
-                    <h1>Witaj<span th:text="${user.name}">user</span></h1>
-                </div>
+    <section>
+        <div class="row">
+            <div class="col-12">
+
+                <h1 align="center">You are in administration panel</h1>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Second name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Office</th>
+                        <th scope="col">Workstation</th>
+                    </tr>
+                    <tr>
+
+                        <form action="#" th:action="@{/admin/add}" th:object="${newUser}" method="post">
+
+                            <th><input th:field="*{username}"></th>
+                            <th><input th:field="*{name}"></th>
+                            <th><input th:field="*{secondName}"></th>
+                            <th><input th:field="*{surname}"></th>
+                            <th><input th:field="*{email}"></th>
+                            <th><input th:field="*{country}"></th>
+                            <div class="input-group">
+                                <th>
+                                    <select th:field="*{workstation}" class="custom-select" id="inputGroupSelect04" aria-label="Choice workstation">
+                                        <option value=""><a class="dropdown-item" href="#" th:action="@{/admin}">Add new workstation</a></option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit">Add</button>
+                                    </div>
+                                </th>
+                            </div>
+
+                        </form>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.secondName}"></td>
+                        <td th:text="${user.surname}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.country}"></td>
+                        <td th:text="${user.office.getName()}"></td>
+                        <td th:text="${user.workstation.getName()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </section>
