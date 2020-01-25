@@ -1,13 +1,15 @@
 package pl.ug.virtualofficebackend.domain.user.boundary;
 
-import java.util.List;
-
 import pl.ug.virtualofficebackend.domain.user.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 
     // CREATE
-    User save(User workstation);
+    User save(User user);
+
+    List<User> save(List<User> users);
 
     // READ
     User get(long id);
@@ -15,7 +17,7 @@ public interface UserService {
     List<User> getAll();
 
     // UPDATE
-    User put(long id, User workstation);
+    User put(long id, User user);
 
     // DELETE
     void delete(long id);

@@ -9,6 +9,8 @@ public interface ItemTypeService {
     // CREATE
     ItemType save(ItemType itemType);
 
+    List<ItemType> save(List<ItemType> itemTypes);
+
     // READ
     ItemType get(long id);
 

@@ -8,6 +8,7 @@ public interface OfficeService {
 
     // CREATE
     Office save(Office office);
+    List<Office> save(List<Office> offices);
 
     // READ
     Office get(long id);

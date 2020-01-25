@@ -11,26 +11,15 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "item")
 public class Item {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotBlank(message = "Name is mandatory")
     private String name;
-
-    @ManyToOne
-    @NotNull(message = "Item type is mandatory")
     private ItemType type;
 
-    @JsonIgnore
-    @ManyToOne
     private Workstation workstation;
-
-    @JsonIgnore
-    @ManyToOne
     private Office office;
 
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -39,6 +28,7 @@ public class Item {
         this.id = itemId;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -47,6 +37,8 @@ public class Item {
         this.name = name;
     }
 
+    @ManyToOne
+    @NotNull(message = "Item type is mandatory")
     public ItemType getType() {
         return type;
     }
@@ -55,6 +47,8 @@ public class Item {
         this.type = type;
     }
 
+    @JsonIgnore
+    @ManyToOne
     public Workstation getWorkstation() {
         return workstation;
     }
@@ -63,6 +57,8 @@ public class Item {
         this.workstation = workstation;
     }
 
+    @JsonIgnore
+    @ManyToOne
     public Office getOffice() {
         return office;
     }
@@ -70,6 +66,5 @@ public class Item {
     public void setOffice(Office office) {
         this.office = office;
     }
-    //endregion
 
 }

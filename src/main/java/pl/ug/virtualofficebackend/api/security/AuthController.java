@@ -25,32 +25,32 @@ import java.util.stream.Collectors;
 
 /**
  * trzeba dodać dwie role do tabeli Role: jedna z id=1, name=USER, i id=2, name=ADMIN
- *
+ * <p>
  * bez tokena wejdziecie tylko na dwie strony: /registration oraz /login
- *
+ * <p>
  * /registration przyjmuje dto z wartościami:
  * {
- * 	"name":"name3",
- * 	"surname": "surname3",
- * 	"username": "username3",
- * 	"password": "123",
- * 	"matchingPassword": "123",
- * 	"email": "asd3@gmail.com",
- * 	"country":"country3"
+ * "name":"name3",
+ * "surname": "surname3",
+ * "username": "username3",
+ * "password": "123",
+ * "matchingPassword": "123",
+ * "email": "asd3@gmail.com",
+ * "country":"country3"
  * }
-
+ * <p>
  * jeśli uda się zarejestrować, zwraca token w formacie: Bearer WŁAŚCIWY_TOKEN
- *
+ * <p>
  * /login przyjmuje takiego dtoka:
  * {
- * 	"username":"username3",
- * 	"password":"123"
+ * "username":"username3",
+ * "password":"123"
  * }
  * zwraca to samo, co register
- *
+ * <p>
  * i teraz trzeba wsadzać ten token do headerów przy każdym zapytaniu API w formacie:
  * Authorization: Bearer WŁAŚCIWY_TOKEN
- *
+ * <p>
  * są zrobione dwa specjalne endpointy do testowania tego:
  * /user - zwraca Hello user, jeśli osoba jest zalogowana(w headerze był token)
  * /admin - zwraca Hello admin, jeśli osoba jest zalogowana I jej rola to ADMIN(roleId = 2)

@@ -9,6 +9,8 @@ public interface WorkstationService {
     // CREATE
     Workstation save(Workstation workstation);
 
+    List<Workstation> save(List<Workstation> workstations);
+
     // READ
     Workstation get(long id);
 

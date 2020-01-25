@@ -15,14 +15,8 @@ import javax.validation.constraints.NotNull;
         x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
         message = "Invalid location. ")
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotBlank(message = "Name is mandatory. ")
     private String name;
-
-    @Min(value = 1, message = "At least one person capacity is required. ")
     private int capacity;
 
     /*
@@ -34,23 +28,16 @@ public class Room {
 
     //region Position
     private int x1Position;
-
     private int y1Position;
-
     private int x2Position;
-
     private int y2Position;
     //endregion
 
-    @ManyToOne
-    @NotNull(message = "Room type is mandatory. ")
     private RoomType type;
-
-    @JsonIgnore
-    @ManyToOne
     private Office office;
 
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -59,6 +46,7 @@ public class Room {
         this.id = id;
     }
 
+    @NotBlank(message = "Name is mandatory. ")
     public String getName() {
         return name;
     }
@@ -67,6 +55,7 @@ public class Room {
         this.name = name;
     }
 
+    @Min(value = 1, message = "At least one person capacity is required. ")
     public int getCapacity() {
         return capacity;
     }
@@ -107,6 +96,8 @@ public class Room {
         this.y2Position = y2Position;
     }
 
+    @ManyToOne
+    @NotNull(message = "Room type is mandatory. ")
     public RoomType getType() {
         return type;
     }
@@ -115,6 +106,8 @@ public class Room {
         this.type = type;
     }
 
+    @JsonIgnore
+    @ManyToOne
     public Office getOffice() {
         return office;
     }
@@ -122,5 +115,4 @@ public class Room {
     public void setOffice(Office office) {
         this.office = office;
     }
-    //endregion
 }

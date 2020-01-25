@@ -12,8 +12,6 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
-    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
-
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
@@ -21,6 +19,10 @@ public class RoomServiceImpl implements RoomService {
 
     public Room save(@Valid Room room) {
         return this.roomRepository.save(room);
+    }
+
+    public List<Room> save(@Valid List<Room> rooms) {
+        return this.roomRepository.saveAll(rooms);
     }
 
     public Room get(long id) {

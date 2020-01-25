@@ -9,6 +9,8 @@ public interface DecorationService {
     // CREATE
     Decoration save(Decoration decoration);
 
+    List<Decoration> save(List<Decoration> decorations);
+
     // READ
     Decoration get(long id);
 

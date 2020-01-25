@@ -2,14 +2,15 @@ package pl.ug.virtualofficebackend.api.office.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.itemType.boundary.ItemTypeService;
 import pl.ug.virtualofficebackend.domain.itemType.entity.ItemType;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/itemType")
 public class ItemTypeController {
     private ItemTypeService itemTypeService;
 
@@ -19,42 +20,47 @@ public class ItemTypeController {
     }
 
     @CrossOrigin
-    @PostMapping("/api/itemType")
-    public ResponseEntity<ItemType> post(@RequestBody ItemType itemType) {
-        return new ResponseEntity<>(this.itemTypeService.save(itemType), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            consumes = {"application/son"}, produces = {"application/json"})
+    public ItemType post(@RequestBody ItemType itemType) {
+        return this.itemTypeService.save(itemType);
     }
 
     @CrossOrigin
-    @GetMapping("/api/itemType")
-    public ResponseEntity<List<ItemType>> get() {
-        return new ResponseEntity<>(this.itemTypeService.getAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/add", method = RequestMethod.POST,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public List<ItemType> post(@RequestBody @Valid List<ItemType> itemTypes) {
+        return this.itemTypeService.save(itemTypes);
     }
 
     @CrossOrigin
-    @GetMapping("/api/itemType/{id}")
-    public ResponseEntity<ItemType> get(@PathVariable Long id) {
-        return new ResponseEntity<>(this.itemTypeService.get(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
+    public List<ItemType> get() {
+        return this.itemTypeService.getAll();
     }
 
     @CrossOrigin
-    @PutMapping("/api/itemType/{id}")
-    public ResponseEntity<ItemType> put(@PathVariable Long id, @RequestBody ItemType itemType) {
-        if (this.itemTypeService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.itemTypeService.put(id, itemType), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    public ItemType get(@PathVariable Long id) {
+        return this.itemTypeService.get(id);
     }
 
     @CrossOrigin
-    @DeleteMapping("/api/itemType/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        if (this.itemTypeService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public ItemType put(@PathVariable Long id, @RequestBody ItemType itemType) {
+        return this.itemTypeService.put(id, itemType);
+    }
 
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    public void delete(@PathVariable Long id) {
         this.itemTypeService.delete(id);
-
-        return new ResponseEntity<>("Item type deleted", HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package pl.ug.virtualofficebackend.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.security.entity.Role;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
@@ -11,32 +12,22 @@ import javax.validation.constraints.NotBlank;
 
 @Entity(name = "office_user")
 public class User {
-    @NotBlank(message = "Country is mandatory")
-    public String country;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Username is mandatory")
+
     private String username;
-    @Email
-    @NotBlank(message = "Email is mandatory")
+    private String password;
     private String email;
-    @NotBlank(message = "Name is mandatory")
     private String name;
     private String secondName;
-    private String password;
-    @NotBlank(message = "Surname is mandatory")
     private String surname;
-    @JsonIgnore
-    @OneToOne(mappedBy = "user")
-    private Workstation workstation;
-    @JsonIgnore
-    @ManyToOne
-    private Office office;
-    @ManyToOne
-    private Role role;
+    private String country;
 
-    //region GET SET
+    private Role role;
+    private Workstation workstation;
+    private Office office;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -45,6 +36,7 @@ public class User {
         this.id = id;
     }
 
+    @NotBlank(message = "Username is mandatory")
     public String getUsername() {
         return username;
     }
@@ -53,6 +45,8 @@ public class User {
         this.username = username;
     }
 
+    @Email
+    @NotBlank(message = "Email is mandatory")
     public String getEmail() {
         return email;
     }
@@ -61,6 +55,7 @@ public class User {
         this.email = email;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -77,6 +72,7 @@ public class User {
         this.secondName = secondName;
     }
 
+    @NotBlank(message = "Surname is mandatory")
     public String getSurname() {
         return surname;
     }
@@ -85,6 +81,7 @@ public class User {
         this.surname = surname;
     }
 
+    @NotBlank(message = "Country is mandatory")
     public String getCountry() {
         return country;
     }
@@ -93,6 +90,9 @@ public class User {
         this.country = country;
     }
 
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    @JsonProperty(value = "workstation")
     public Workstation getWorkstation() {
         return workstation;
     }
@@ -101,6 +101,9 @@ public class User {
         this.workstation = workstation;
     }
 
+    @ManyToOne
+    @JsonIgnore
+    @JsonProperty(value = "office")
     public Office getOffice() {
         return office;
     }
@@ -109,6 +112,9 @@ public class User {
         this.office = office;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "password")
+    @NotBlank(message = "Password is mandatory")
     public String getPassword() {
         return password;
     }
@@ -117,6 +123,7 @@ public class User {
         this.password = password;
     }
 
+    @ManyToOne
     public Role getRole() {
         return role;
     }

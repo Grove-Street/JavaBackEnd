@@ -15,11 +15,7 @@ import javax.validation.constraints.NotNull;
         x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
         message = "Invalid location. ")
 public class Decoration {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     /*
@@ -31,27 +27,17 @@ public class Decoration {
 
     //region Position
     private int x1Position;
-
     private int y1Position;
-
     private int x2Position;
-
     private int y2Position;
     //endregion
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Rotation is mandatory")
     private Rotation rotation;
-
-    @ManyToOne
-    @NotNull(message = "Decoration type is mandatory")
     private DecorationType type;
-
-    @JsonIgnore
-    @ManyToOne
     private Office office;
 
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -60,6 +46,7 @@ public class Decoration {
         this.id = decorationId;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -68,6 +55,8 @@ public class Decoration {
         this.name = name;
     }
 
+    @ManyToOne
+    @NotNull(message = "Decoration type is mandatory")
     public DecorationType getType() {
         return type;
     }
@@ -108,6 +97,7 @@ public class Decoration {
         this.y2Position = y2Position;
     }
 
+    @Enumerated(EnumType.STRING)
     public Rotation getRotation() {
         return rotation;
     }
@@ -116,6 +106,8 @@ public class Decoration {
         this.rotation = rotation;
     }
 
+    @JsonIgnore
+    @ManyToOne
     public Office getOffice() {
         return office;
     }
@@ -123,5 +115,5 @@ public class Decoration {
     public void setOffice(Office office) {
         this.office = office;
     }
-    //endregion
+
 }

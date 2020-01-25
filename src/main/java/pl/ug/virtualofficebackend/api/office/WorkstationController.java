@@ -2,14 +2,15 @@ package pl.ug.virtualofficebackend.api.office;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.workstation.boundary.WorkstationService;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/workstation")
 public class WorkstationController {
     private WorkstationService workstationService;
 
@@ -19,42 +20,47 @@ public class WorkstationController {
     }
 
     @CrossOrigin
-    @PostMapping("/api/workstation")
-    public ResponseEntity<Workstation> post(@RequestBody Workstation workstation) {
-        return new ResponseEntity<>(this.workstationService.save(workstation), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            consumes = {"application/son"}, produces = {"application/json"})
+    public Workstation post(@RequestBody @Valid Workstation workstation) {
+        return this.workstationService.save(workstation);
     }
 
     @CrossOrigin
-    @GetMapping("/api/workstation")
-    public ResponseEntity<List<Workstation>> get() {
-        return new ResponseEntity<>(this.workstationService.getAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/add", method = RequestMethod.POST,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public List<Workstation> post(@RequestBody @Valid List<Workstation> workstations) {
+        return this.workstationService.save(workstations);
     }
 
     @CrossOrigin
-    @GetMapping("/api/workstation/{id}")
-    public ResponseEntity<Workstation> get(@PathVariable Long id) {
-        return new ResponseEntity<>(this.workstationService.get(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
+    public List<Workstation> get() {
+        return this.workstationService.getAll();
     }
 
     @CrossOrigin
-    @PutMapping("/api/workstation/{id}")
-    public ResponseEntity<Workstation> put(@PathVariable Long id, @RequestBody Workstation workstation) {
-        if (this.workstationService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.workstationService.put(id, workstation), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    public Workstation get(@PathVariable("id") Long id) {
+        return this.workstationService.get(id);
     }
 
     @CrossOrigin
-    @DeleteMapping("/api/workstation/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        if (this.workstationService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public Workstation put(@PathVariable("id") Long id, @RequestBody @Valid Workstation workstation) {
+        return this.workstationService.put(id, workstation);
+    }
 
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    public void delete(@PathVariable("id") Long id) {
         this.workstationService.delete(id);
-
-        return new ResponseEntity<>("Workstation deleted", HttpStatus.OK);
     }
 }

@@ -9,6 +9,8 @@ public interface RoomService {
     // CREATE
     Room save(Room room);
 
+    List<Room> save(List<Room> room);
+
     // READ
     Room get(long id);
 

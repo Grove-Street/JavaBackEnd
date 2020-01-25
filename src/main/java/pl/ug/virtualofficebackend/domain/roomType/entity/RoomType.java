@@ -9,18 +9,13 @@ import java.util.List;
 
 @Entity(name = "room_type")
 public class RoomType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "type")
     private List<Room> roomList;
 
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -29,6 +24,7 @@ public class RoomType {
         this.id = id;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -37,6 +33,8 @@ public class RoomType {
         this.name = name;
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "type")
     public List<Room> getRoomList() {
         return roomList;
     }
@@ -44,6 +42,5 @@ public class RoomType {
     public void setRoomList(List<Room> roomList) {
         this.roomList = roomList;
     }
-    //endregion
 
 }

@@ -12,8 +12,6 @@ import java.util.List;
 public class WorkstationServiceImpl implements WorkstationService {
     private WorkstationRepository workstationRepository;
 
-    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
-
     @Autowired
     public WorkstationServiceImpl(WorkstationRepository workstationRepository) {
         this.workstationRepository = workstationRepository;
@@ -21,6 +19,10 @@ public class WorkstationServiceImpl implements WorkstationService {
 
     public Workstation save(@Valid Workstation workstation) {
         return this.workstationRepository.save(workstation);
+    }
+
+    public List<Workstation> save(@Valid List<Workstation> workstations) {
+        return this.workstationRepository.saveAll(workstations);
     }
 
     public Workstation get(long id) {

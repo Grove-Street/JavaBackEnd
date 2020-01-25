@@ -30,6 +30,10 @@ public class VerificationToken {
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
+    public static int getEXPIRATION() {
+        return EXPIRATION;
+    }
+
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));
@@ -40,10 +44,6 @@ public class VerificationToken {
     public void updateToken(final String token) {
         this.token = token;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
-    }
-
-    public static int getEXPIRATION() {
-        return EXPIRATION;
     }
 
     public Long getId() {

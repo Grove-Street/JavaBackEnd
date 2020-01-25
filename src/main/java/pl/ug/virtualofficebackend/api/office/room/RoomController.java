@@ -2,14 +2,15 @@ package pl.ug.virtualofficebackend.api.office.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.room.boundary.RoomService;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/room")
 public class RoomController {
     private RoomService roomService;
 
@@ -19,42 +20,47 @@ public class RoomController {
     }
 
     @CrossOrigin
-    @PostMapping("/api/room")
-    public ResponseEntity<Room> post(@RequestBody Room room) {
-        return new ResponseEntity<>(this.roomService.save(room), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            consumes = {"application/son"}, produces = {"application/json"})
+    public Room post(@RequestBody Room room) {
+        return this.roomService.save(room);
     }
 
     @CrossOrigin
-    @GetMapping("/api/room")
-    public ResponseEntity<List<Room>> get() {
-        return new ResponseEntity<>(this.roomService.getAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/add", method = RequestMethod.POST,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public List<Room> post(@RequestBody @Valid List<Room> rooms) {
+        return this.roomService.save(rooms);
     }
 
     @CrossOrigin
-    @GetMapping("/api/room/{id}")
-    public ResponseEntity<Room> get(@PathVariable Long id) {
-        return new ResponseEntity<>(this.roomService.get(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
+    public List<Room> get() {
+        return this.roomService.getAll();
     }
 
     @CrossOrigin
-    @PutMapping("/api/room/{id}")
-    public ResponseEntity<Room> put(@PathVariable Long id, @RequestBody Room room) {
-        if (this.roomService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.roomService.put(id, room), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    public Room get(@PathVariable Long id) {
+        return this.roomService.get(id);
     }
 
     @CrossOrigin
-    @DeleteMapping("/api/room/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        if (this.roomService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public Room put(@PathVariable Long id, @RequestBody Room room) {
+        return this.roomService.put(id, room);
+    }
 
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    public void delete(@PathVariable Long id) {
         this.roomService.delete(id);
-
-        return new ResponseEntity<>("Room deleted", HttpStatus.OK);
     }
 }

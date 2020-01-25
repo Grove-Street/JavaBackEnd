@@ -12,33 +12,20 @@ import java.util.List;
 
 @Entity(name = "office")
 public class Office {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    /*
-        Ignore some fields because front isn't prepared
-     */
+    private float lon;
+    private float lat;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "office")
     private List<Decoration> decorations;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "office")
     private List<Room> rooms;
-
-    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
     private List<Workstation> workstations;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "office")
     private List<User> users;
 
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -47,6 +34,7 @@ public class Office {
         this.id = id;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -55,6 +43,24 @@ public class Office {
         this.name = name;
     }
 
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "office")
     public List<Decoration> getDecorations() {
         return decorations;
     }
@@ -63,6 +69,8 @@ public class Office {
         this.decorations = decorations;
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "office")
     public List<Room> getRooms() {
         return rooms;
     }
@@ -71,6 +79,8 @@ public class Office {
         this.rooms = rooms;
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "office")
     public List<Workstation> getWorkstations() {
         return workstations;
     }
@@ -79,6 +89,7 @@ public class Office {
         this.workstations = workstations;
     }
 
+    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
     public List<User> getUsers() {
         return users;
     }
@@ -86,5 +97,4 @@ public class Office {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-    //endregion
 }

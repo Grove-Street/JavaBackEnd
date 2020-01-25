@@ -12,8 +12,6 @@ import java.util.List;
 public class OfficeServiceImpl implements OfficeService {
     private OfficeRepository officeRepository;
 
-    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
-
     @Autowired
     public OfficeServiceImpl(OfficeRepository officeRepository) {
         this.officeRepository = officeRepository;
@@ -21,6 +19,10 @@ public class OfficeServiceImpl implements OfficeService {
 
     public Office save(@Valid Office office) {
         return this.officeRepository.save(office);
+    }
+
+    public List<Office> save(@Valid List<Office> offices) {
+        return this.officeRepository.saveAll(offices);
     }
 
     public Office get(long id) {

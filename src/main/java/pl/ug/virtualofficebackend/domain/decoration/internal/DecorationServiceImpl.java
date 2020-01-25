@@ -12,8 +12,6 @@ import java.util.List;
 public class DecorationServiceImpl implements DecorationService {
     private DecorationRepository decorationRepository;
 
-    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
-
     @Autowired
     public DecorationServiceImpl(DecorationRepository decorationRepository) {
         this.decorationRepository = decorationRepository;
@@ -21,6 +19,10 @@ public class DecorationServiceImpl implements DecorationService {
 
     public Decoration save(@Valid Decoration decoration) {
         return this.decorationRepository.save(decoration);
+    }
+
+    public List<Decoration> save(@Valid List<Decoration> decorations) {
+        return this.decorationRepository.saveAll(decorations);
     }
 
     public Decoration get(long id) {

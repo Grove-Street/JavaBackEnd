@@ -45,7 +45,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
                 .withName(accountDto.getName())
                 .withSurname(accountDto.getSurname())
                 .withPassword(passwordEncoder.encode(accountDto.getPassword()))
-                .withRole(roleRepository.findById(1).orElseThrow(() -> new IllegalArgumentException("Role not found")))
+                .withRole(roleRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("Role not found")))
                 .withCountry(accountDto.getCountry())
                 .withEmail(accountDto.getEmail())
                 .build();

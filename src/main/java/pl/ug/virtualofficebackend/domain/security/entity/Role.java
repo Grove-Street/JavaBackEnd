@@ -12,22 +12,21 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private int id;
+    private long id;
 
     @Column(unique = true, nullable = false)
     private String name;
     @JsonBackReference
-    @OneToMany(
-            mappedBy = "role",
+    @OneToMany(mappedBy = "role",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     private List<User> users;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

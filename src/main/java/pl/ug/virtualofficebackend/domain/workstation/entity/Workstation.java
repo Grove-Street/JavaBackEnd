@@ -16,11 +16,7 @@ import java.util.List;
         x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
         message = "Invalid location. ")
 public class Workstation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     /*
@@ -32,30 +28,19 @@ public class Workstation {
 
     //region Position
     private int x1Position;
-
     private int y1Position;
-
     private int x2Position;
-
     private int y2Position;
+
+    private Rotation rotation;
     //endregion
 
-
-    @Enumerated(EnumType.STRING)
-    private Rotation rotation;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "workstation")
+    private User user;
+    private Office office;
     private List<Item> itemList;
 
-    @OneToOne
-    private User user;
-
-    @JsonIgnore
-    @ManyToOne
-    private Office office;
-
-    //region GET SET
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -64,6 +49,7 @@ public class Workstation {
         this.id = id;
     }
 
+    @NotBlank(message = "Name is mandatory")
     public String getName() {
         return name;
     }
@@ -104,6 +90,7 @@ public class Workstation {
         this.y2Position = y2Position;
     }
 
+    @Enumerated(EnumType.STRING)
     public Rotation getRotation() {
         return rotation;
     }
@@ -112,6 +99,8 @@ public class Workstation {
         this.rotation = rotation;
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "workstation")
     public List<Item> getItemList() {
         return itemList;
     }
@@ -120,6 +109,7 @@ public class Workstation {
         this.itemList = itemList;
     }
 
+    @OneToOne
     public User getUser() {
         return user;
     }
@@ -128,6 +118,8 @@ public class Workstation {
         this.user = user;
     }
 
+    @JsonIgnore
+    @ManyToOne
     public Office getOffice() {
         return office;
     }
@@ -135,6 +127,4 @@ public class Workstation {
     public void setOffice(Office office) {
         this.office = office;
     }
-    //endregion
-
 }

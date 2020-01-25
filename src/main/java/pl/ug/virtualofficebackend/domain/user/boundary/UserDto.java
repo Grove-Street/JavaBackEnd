@@ -23,6 +23,7 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String password;
+
     private String matchingPassword;
 
     @NotNull

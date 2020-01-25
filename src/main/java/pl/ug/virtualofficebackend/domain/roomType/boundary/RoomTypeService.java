@@ -10,6 +10,8 @@ public interface RoomTypeService {
     // CREATE
     RoomType save(RoomType roomType);
 
+    List<RoomType> save(List<RoomType> roomTypes);
+
     // READ
     RoomType get(long id);
 

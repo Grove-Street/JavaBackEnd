@@ -2,14 +2,15 @@ package pl.ug.virtualofficebackend.api.office.decoration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.decoration.boundary.DecorationService;
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/decoration")
 public class DecorationController {
     private DecorationService decorationService;
 
@@ -19,42 +20,47 @@ public class DecorationController {
     }
 
     @CrossOrigin
-    @PostMapping("/api/decoration")
-    public ResponseEntity<Decoration> post(@RequestBody Decoration decoration) {
-        return new ResponseEntity<>(this.decorationService.save(decoration), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            consumes = {"application/son"}, produces = {"application/json"})
+    public Decoration post(@RequestBody Decoration decoration) {
+        return this.decorationService.save(decoration);
     }
 
     @CrossOrigin
-    @GetMapping("/api/decoration")
-    public ResponseEntity<List<Decoration>> get() {
-        return new ResponseEntity<>(this.decorationService.getAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/add", method = RequestMethod.POST,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public List<Decoration> post(@RequestBody @Valid List<Decoration> decorations) {
+        return this.decorationService.save(decorations);
     }
 
     @CrossOrigin
-    @GetMapping("/api/decoration/{id}")
-    public ResponseEntity<Decoration> get(@PathVariable Long id) {
-        return new ResponseEntity<>(this.decorationService.get(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
+    public List<Decoration> get() {
+        return this.decorationService.getAll();
     }
 
     @CrossOrigin
-    @PutMapping("/api/decoration/{id}")
-    public ResponseEntity<Decoration> put(@PathVariable Long id, @RequestBody Decoration decoration) {
-        if (this.decorationService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.decorationService.put(id, decoration), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    public Decoration get(@PathVariable Long id) {
+        return this.decorationService.get(id);
     }
 
     @CrossOrigin
-    @DeleteMapping("/api/decoration/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        if (this.decorationService.get(id) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT,
+            consumes = {"application/json"}, produces = {"application/json"})
+    public Decoration put(@PathVariable Long id, @RequestBody Decoration decoration) {
+        return this.decorationService.put(id, decoration);
+    }
 
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    public void delete(@PathVariable Long id) {
         this.decorationService.delete(id);
-
-        return new ResponseEntity<>("Decoration deleted", HttpStatus.OK);
     }
 }

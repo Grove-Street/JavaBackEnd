@@ -12,8 +12,6 @@ import java.util.List;
 public class ItemTypeServiceImpl implements ItemTypeService {
     private ItemTypeRepository itemTypeRepository;
 
-    // TODO: Add exception handling (https://www.baeldung.com/spring-mvc-custom-validator)
-
     @Autowired
     public ItemTypeServiceImpl(ItemTypeRepository itemTypeRepository) {
         this.itemTypeRepository = itemTypeRepository;
@@ -21,6 +19,10 @@ public class ItemTypeServiceImpl implements ItemTypeService {
 
     public ItemType save(@Valid ItemType itemType) {
         return this.itemTypeRepository.save(itemType);
+    }
+
+    public List<ItemType> save(@Valid List<ItemType> itemTypes) {
+        return this.itemTypeRepository.saveAll(itemTypes);
     }
 
     public ItemType get(long id) {
