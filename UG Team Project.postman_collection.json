@@ -112,7 +112,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Workstation",
+			"name": "POST Workstations",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -141,6 +141,24 @@
 						"api",
 						"workstation",
 						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Offices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/api/office",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"api",
+						"office"
 					]
 				}
 			},
