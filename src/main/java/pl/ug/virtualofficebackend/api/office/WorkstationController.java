@@ -22,7 +22,7 @@ public class WorkstationController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public Workstation post(@RequestBody @Valid Workstation workstation) {
         return this.workstationService.save(workstation);
     }

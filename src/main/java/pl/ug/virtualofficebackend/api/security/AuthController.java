@@ -72,10 +72,10 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
-    @ApiOperation(value = "Authenticate user with login and password. " +
-            "Returns Bearer Token if correct, otherwise print exception message.")
     @CrossOrigin
     @PostMapping("/login")
+    @ApiOperation(value = "Authenticate user with login and password. " +
+            "Returns Bearer Token if correct, otherwise print exception message.")
     public String authenticateUser(@Valid @RequestBody LoginDto loginDto, BindingResult result) {
         authValidationErrorService.validateFromBindingResult(result);
         Authentication authentication = createAuthentication(loginDto);
@@ -96,10 +96,10 @@ public class AuthController {
         return "Bearer " + tokenProvider.generateToken(authentication);
     }
 
-    @ApiOperation(value = "Creates user account. " +
-            "Returns Bearer Token if everything was correct, otherwise print exception message.")
     @CrossOrigin
     @PostMapping("/registration")
+    @ApiOperation(value = "Creates user account. " +
+            "Returns Bearer Token if everything was correct, otherwise print exception message.")
     public String registerUserAccount(@RequestBody UserDto accountDto) throws UserDtoValidationException {
         System.out.println("Registering user account with information: " + accountDto);
         userSecurityService.registerNewUserAccount(accountDto);

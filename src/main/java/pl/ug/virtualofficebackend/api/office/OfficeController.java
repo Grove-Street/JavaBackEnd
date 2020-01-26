@@ -22,7 +22,7 @@ public class OfficeController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public Office post(@RequestBody Office office) {
         return this.officeService.save(office);
     }

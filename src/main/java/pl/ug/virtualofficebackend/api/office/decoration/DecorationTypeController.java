@@ -22,7 +22,7 @@ public class DecorationTypeController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public DecorationType post(@RequestBody DecorationType decorationType) {
         return this.decorationTypeService.save(decorationType);
     }

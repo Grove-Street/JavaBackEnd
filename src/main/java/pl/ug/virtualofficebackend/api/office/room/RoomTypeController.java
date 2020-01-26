@@ -22,7 +22,7 @@ public class RoomTypeController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public RoomType post(@RequestBody RoomType roomType) {
         return this.roomTypeService.save(roomType);
     }

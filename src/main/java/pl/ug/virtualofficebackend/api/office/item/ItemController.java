@@ -22,7 +22,7 @@ public class ItemController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public Item post(@RequestBody Item item) {
         return this.itemService.save(item);
     }

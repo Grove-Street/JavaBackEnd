@@ -22,7 +22,7 @@ public class ItemTypeController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "", method = RequestMethod.POST,
-            consumes = {"application/son"}, produces = {"application/json"})
+            consumes = {"application/json"}, produces = {"application/json"})
     public ItemType post(@RequestBody ItemType itemType) {
         return this.itemTypeService.save(itemType);
     }
