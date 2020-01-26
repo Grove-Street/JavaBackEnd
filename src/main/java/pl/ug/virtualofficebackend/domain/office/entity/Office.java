@@ -79,7 +79,7 @@ public class Office {
         this.rooms = rooms;
     }
 
-    @OneToMany(mappedBy = "office")
+    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
     public List<Workstation> getWorkstations() {
         return workstations;
     }
@@ -89,7 +89,7 @@ public class Office {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "office")
     public List<User> getUsers() {
         return users;
     }
