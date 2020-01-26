@@ -79,7 +79,6 @@ public class Office {
         this.rooms = rooms;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "office")
     public List<Workstation> getWorkstations() {
         return workstations;
@@ -89,6 +88,7 @@ public class Office {
         this.workstations = workstations;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
     public List<User> getUsers() {
         return users;
