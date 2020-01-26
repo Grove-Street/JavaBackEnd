@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.api.security;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +72,8 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
+    @ApiOperation(value = "Authenticate user with login and password. " +
+            "Returns Bearer Token if correct, otherwise print exception message.")
     @CrossOrigin
     @PostMapping("/login")
     public String authenticateUser(@Valid @RequestBody LoginDto loginDto, BindingResult result) {
@@ -93,6 +96,8 @@ public class AuthController {
         return "Bearer " + tokenProvider.generateToken(authentication);
     }
 
+    @ApiOperation(value = "Creates user account. " +
+            "Returns Bearer Token if everything was correct, otherwise print exception message.")
     @CrossOrigin
     @PostMapping("/registration")
     public String registerUserAccount(@RequestBody UserDto accountDto) throws UserDtoValidationException {
