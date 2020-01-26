@@ -1,6 +1,7 @@
 package pl.ug.virtualofficebackend.domain.workstation.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.ug.virtualofficebackend.common.model.Rotation;
 import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.item.entity.Item;
@@ -99,8 +100,9 @@ public class Workstation {
         this.rotation = rotation;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "workstation")
+    @JsonIgnore
+    @JsonProperty(value = "itemList")
     public List<Item> getItemList() {
         return itemList;
     }
@@ -118,8 +120,9 @@ public class Workstation {
         this.user = user;
     }
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
+    @JsonProperty(value = "office")
     public Office getOffice() {
         return office;
     }
