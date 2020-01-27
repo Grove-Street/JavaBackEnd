@@ -10,22 +10,53 @@
 
     <title>Administration</title>
 </head>
-<body class="bg-light">
+<body class="bg-dark">
 <section>
-    <div class="row">
+    <div class="offset-1">
+
+    </div>
+    <div class="row align-content-center">
         <div class="col-md-6 offset-md-3">
-            <form action="#" th:action="@{/manager/new_manager/add}" th:object="${newManager}" method="post">
+            <form  class="p-4 bg-secondary shadow border-0 rounded" th:action="@{/admin/new_manager/add}" th:object="${newManager}" method="post">
 
-                <label for="username">Username</label><input id="username" th:field="*{username}">
-                <label for="name">Name</label><input id="name" th:field="*{name}">
-                <label for="secondname">Second name</label><input id="secondname" th:field="*{secondName}">
-                <label for="surname">Surname</label><input id="surname" th:field="*{surname}">
-                <label for="email">Email</label><input id="email" th:field="*{email}">
-                <label for="country">Country</label><input id="country" th:field="*{country}">
+                <div class="row">
+                    <div class="col-3"><label for="username">Username</label></div>
+                    <div class="col-5"><input class="w-100" id="username" th:field="*{username}"></div>
+                    <div class="col-4"><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="name">Name</label></div>
+                    <div class="col-5"><input class="w-100" id="name" th:field="*{name}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="secondname">Second name</label></div>
+                    <div class="col-5"><input class="w-100" id="secondname" th:field="*{secondName}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}">Second name Error</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="surname">Surname</label></div>
+                    <div class="col-5"><input class="w-100" id="surname" th:field="*{surname}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="email">Email</label></div
+                    ><div class="col-5"><input class="w-100" id="email" th:field="*{email}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="country">Country</label></div>
+                    <div class="col-5"><input class="w-100" id="country" th:field="*{country}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</span></div>
+                </div>
 
-                <label for="office_name">Office name</label><input id="office_name" th:field="*{office.name}">
+                <div class="row">
+                    <div class="col-3"><label for="office_name">Office name</label></div>
+                    <div class="col-5"><input value="Example company" class="w-100" id="office_name" th:field="*{office.name}"></div>
+                    <div class="col-4"><span class="text-danger" th:if="${#fields.hasErrors('office.name')}" th:errors="*{office.name}">Office name Error</span></div>
+                </div>
 
-                <button class="btn" type="submit">Add</button>
+                <div class="row m-auto p-1 "><button class="btn btn-dark w-75 m-auto" type="submit">Add</button></div>
             </form>
         </div>
     </div>

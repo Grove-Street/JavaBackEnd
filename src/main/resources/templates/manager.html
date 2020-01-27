@@ -20,18 +20,8 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Second name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Office</th>
-                        <th scope="col">Workstation</th>
-                    </tr>
-                    <tr>
 
-                        <form action="#" th:action="@{/admin/add}" th:object="${newUser}" method="post">
+                        <form action="#" th:action="@{/manager/add}" th:object="${newUser}" method="post">
 
                             <th><input th:field="*{username}"></th>
                             <th><input th:field="*{name}"></th>
@@ -39,11 +29,13 @@
                             <th><input th:field="*{surname}"></th>
                             <th><input th:field="*{email}"></th>
                             <th><input th:field="*{country}"></th>
-                            <th><button th:action="@{/manager/new_workstation}">new workstation</button></th>
                             <div class="input-group">
                                 <th>
-                                    <select th:field="*{workstation}" class="custom-select" id="inputGroupSelect04" aria-label="Choice workstation">
-                                        <option value=""><a class="dropdown-item" href="#" th:action="@{/admin}">Add new workstation</a></option>
+                                    <select th:field="*{workstation}"  class="custom-select" aria-label="Choice workstation">
+                                        <option value="" >Chose Workstation</option>
+                                        <div th:each="work : ${workstations}">
+                                            <option th:value="${work}" th:text="${work.getName()}"></option>
+                                        </div>
                                     </select>
                                 </th>
                                 <th>
@@ -56,6 +48,16 @@
                         </form>
 
                     </tr>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Second name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Office</th>
+                        <th scope="col">Workstation</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user : ${users}">
@@ -66,7 +68,12 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.country}"></td>
                         <td th:text="${user.office.getName()}"></td>
-                        <td th:text="${user.workstation.getName()}"></td>
+                        <div th:if="${user.workstation != null}">
+                            <td th:text="${user.workstation.getName()}"></td>
+                        </div>
+                        <div th:if="${user.workstation == null}">
+                            <td th:text="${user.workstation}"></td>
+                        </div>
                     </tr>
                     </tbody>
                 </table>

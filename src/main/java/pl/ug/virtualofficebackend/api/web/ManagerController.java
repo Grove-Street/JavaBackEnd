@@ -12,6 +12,7 @@ import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 import pl.ug.virtualofficebackend.domain.user.internal.UserServiceImpl;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
+import pl.ug.virtualofficebackend.domain.workstation.internal.WorkstationServiceImpl;
 
 import javax.validation.Valid;
 
@@ -21,14 +22,20 @@ public class ManagerController {
     @Autowired
     UserServiceImpl userService;
 
-    User manager = new User(); // 100 - id zalogowanego managera
+    @Autowired
+    WorkstationServiceImpl workstationService;
+
+    User manager = new User(); // logedManager //
     // Potrzebne dane zalogowanego user'a jako manager od Spring Security
 
     @GetMapping("/manager")
     public String panel(Model model) {
+
+        manager = userService.get(0);
+
         model.addAttribute("users", userService.getAll());
         model.addAttribute("newUser", new User());
-
+        model.addAttribute("workstations", workstationService.getAll());
         model.addAttribute("manager", manager);
         return "manager";
     }
@@ -36,12 +43,11 @@ public class ManagerController {
     @PostMapping("/manager/add")
     public String panel(@Valid User user, Errors errors, Model model) {
 
-        System.out.println("###\n" + user + "\n###");
-
         if (errors.hasErrors()) {
             model.addAttribute("users", userService.getAll());
             model.addAttribute("newUser", user);
             model.addAttribute("manager", manager);
+            model.addAttribute("workstations", workstationService.getAll());
             return "manager";
         }
 
