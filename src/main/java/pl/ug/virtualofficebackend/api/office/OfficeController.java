@@ -79,6 +79,13 @@ public class OfficeController {
 
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}/availableUsers", method = RequestMethod.GET, produces = {"application/json"})
+    public List<User> getAvailableUsers(@PathVariable Long id) {
+        return this.userService.getUsersWithoutWorkstation(this.officeService.get(id));
+    }
+
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}/rooms", method = RequestMethod.GET, produces = {"application/json"})
     public List<Room> getRooms(@PathVariable Long id) {
         return this.roomService.getByOffice(this.officeService.get(id));

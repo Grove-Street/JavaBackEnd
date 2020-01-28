@@ -71,4 +71,8 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByUsername(username).orElse(null);
     }
 
+    public List<User> getUsersWithoutWorkstation(Office office) {
+        return this.userRepository.findAllByWorkstationAndOffice(null, office);
+    }
+
 }

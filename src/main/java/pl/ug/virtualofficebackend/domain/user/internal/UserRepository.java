@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
+import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     List<User> findAllByOffice(Office office);
+
+    List<User> findAllByWorkstationAndOffice(Workstation workstation, Office office);
 
 }

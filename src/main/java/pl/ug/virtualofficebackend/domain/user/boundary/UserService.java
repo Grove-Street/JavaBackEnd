@@ -27,4 +27,6 @@ public interface UserService {
 
     User getByUsername(String username);
 
+    List<User> getUsersWithoutWorkstation(Office office);
+
 }
