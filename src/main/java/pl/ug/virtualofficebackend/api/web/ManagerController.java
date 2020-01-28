@@ -5,13 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.ug.virtualofficebackend.domain.office.entity.Office;
-import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 import pl.ug.virtualofficebackend.domain.user.internal.UserServiceImpl;
-import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 import pl.ug.virtualofficebackend.domain.workstation.internal.WorkstationServiceImpl;
 
 import javax.validation.Valid;
@@ -25,18 +21,20 @@ public class ManagerController {
     @Autowired
     WorkstationServiceImpl workstationService;
 
-    User manager = new User(); // logedManager //
-    // Potrzebne dane zalogowanego user'a jako manager od Spring Security
+    private User getUser() {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = new User();//(User) auth.getPrincipal();
+        return user;
+    }
 
     @GetMapping("/manager")
     public String panel(Model model) {
 
-        manager = userService.get(0);
 
         model.addAttribute("users", userService.getAll());
         model.addAttribute("newUser", new User());
         model.addAttribute("workstations", workstationService.getAll());
-        model.addAttribute("manager", manager);
+        model.addAttribute("manager", getUser());
         return "manager";
     }
 
@@ -46,7 +44,7 @@ public class ManagerController {
         if (errors.hasErrors()) {
             model.addAttribute("users", userService.getAll());
             model.addAttribute("newUser", user);
-            model.addAttribute("manager", manager);
+            model.addAttribute("manager", getUser());
             model.addAttribute("workstations", workstationService.getAll());
             return "manager";
         }
@@ -59,7 +57,7 @@ public class ManagerController {
         userToAdd.setCountry(user.getCountry());
         userToAdd.setUsername(user.getUsername());
         userToAdd.setWorkstation(user.getWorkstation());
-        userToAdd.setOffice(manager.getOffice()); // loggedManager.getOffice()
+        userToAdd.setOffice(getUser().getOffice());
         userService.save(userToAdd);
 
         return "redirect:/manager";
