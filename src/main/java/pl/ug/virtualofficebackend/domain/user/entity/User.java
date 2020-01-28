@@ -105,8 +105,6 @@ public class User {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
-    @JsonProperty(value = "office")
     public Office getOffice() {
         return office;
     }
