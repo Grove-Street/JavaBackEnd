@@ -35,6 +35,16 @@ public class WorkstationServiceImpl implements WorkstationService {
     }
 
     public Workstation put(long id, @Valid Workstation workstation) {
+        Workstation toUpdate = this.workstationRepository.findById(id).orElse(null);
+
+        if(toUpdate == null) {
+            return null;
+        }
+
+        if(workstation.getOffice() == null) {
+            workstation.setOffice(toUpdate.getOffice());
+        }
+
         workstation.setId(id);
         return this.workstationRepository.save(workstation);
     }
