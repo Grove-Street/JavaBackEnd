@@ -25,4 +25,6 @@ public interface UserService {
 
     List<User> getByOffice(Office office);
 
+    User getByUsername(String username);
+
 }

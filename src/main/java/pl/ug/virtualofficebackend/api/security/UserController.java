@@ -52,6 +52,13 @@ public class UserController {
 
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/get/{username}", method = RequestMethod.GET, produces = {"application/json"})
+    public User getByUsername(@PathVariable String username) {
+        return this.userService.getByUsername(username);
+    }
+
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}/office", method = RequestMethod.GET, produces = {"application/json"})
     public Office getOffice(@PathVariable Long id) {
         return this.userService.get(id).getOffice();

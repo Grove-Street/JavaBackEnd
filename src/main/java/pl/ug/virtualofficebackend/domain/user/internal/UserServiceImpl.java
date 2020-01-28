@@ -57,4 +57,8 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findAllByOffice(office);
     }
 
+    public User getByUsername(String username) {
+        return this.userRepository.findByUsername(username).orElse(null);
+    }
+
 }
