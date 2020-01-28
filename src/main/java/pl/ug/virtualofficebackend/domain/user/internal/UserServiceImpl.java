@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(toUpdate.getPassword());
         }
 
+        user.setId(id);
         return this.userRepository.save(user);
     }
 
