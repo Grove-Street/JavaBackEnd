@@ -20,16 +20,20 @@ import java.util.UUID;
 
 @Service
 public class UserSecurityServiceImpl implements UserSecurityService {
-
     public static final String TOKEN_INVALID = "invalidToken";
     public static final String TOKEN_EXPIRED = "expired";
+
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private TokenRepository tokenRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserSecurityServiceImpl(UserRepository userRepository, RoleRepository roleRepository, TokenRepository tokenRepository, PasswordEncoder passwordEncoder) {
+    public UserSecurityServiceImpl(
+            UserRepository userRepository,
+            RoleRepository roleRepository,
+            TokenRepository tokenRepository,
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.tokenRepository = tokenRepository;
@@ -40,6 +44,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
     @Override
     public User registerNewUserAccount(UserDto accountDto) throws UserDtoValidationException {
         validateUserDto(accountDto);
+
         User user = UserBuilder.anUser()
                 .withUsername(accountDto.getUsername())
                 .withName(accountDto.getName())
@@ -49,6 +54,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
                 .withCountry(accountDto.getCountry())
                 .withEmail(accountDto.getEmail())
                 .build();
+
         return userRepository.save(user);
     }
 
@@ -95,31 +101,34 @@ public class UserSecurityServiceImpl implements UserSecurityService {
     @Override
     public void validateVerificationToken(String token) throws WrongTokenException {
         final VerificationToken verificationToken = tokenRepository.findByToken(token);
+
         if (verificationToken == null) {
             throw new WrongTokenException(TOKEN_INVALID);
         }
+
         User user = verificationToken.getUser();
         Calendar cal = Calendar.getInstance();
+
         if (isExpired(verificationToken, cal)) {
             tokenRepository.delete(verificationToken);
             throw new WrongTokenException(TOKEN_EXPIRED);
         }
+
         userRepository.save(user);
     }
 
     private boolean isExpired(VerificationToken verificationToken, Calendar cal) {
-        return verificationToken.getExpiryDate()
-                .getTime()
-                - cal.getTime()
-                .getTime() <= 0;
+        return verificationToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0;
     }
 
     @Override
     public VerificationToken generateNewVerificationToken(final String existingVerificationToken) {
         VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
-        vToken.updateToken(UUID.randomUUID()
-                .toString());
+
+        vToken.updateToken(UUID.randomUUID().toString());
+
         vToken = tokenRepository.save(vToken);
+
         return vToken;
     }
 

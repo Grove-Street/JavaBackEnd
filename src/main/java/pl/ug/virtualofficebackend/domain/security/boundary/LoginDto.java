@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 public class LoginDto {
     @NotNull
     String username;
+
     @NotNull
     String password;
 

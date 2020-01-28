@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "verification_token")
 public class VerificationToken {
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION_TIME = 60 * 24 * 31;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,11 +27,11 @@ public class VerificationToken {
     public VerificationToken(String token, User user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = calculateExpiryDate(EXPIRATION);
+        this.expiryDate = calculateExpiryDate(EXPIRATION_TIME);
     }
 
     public static int getEXPIRATION() {
-        return EXPIRATION;
+        return EXPIRATION_TIME;
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
@@ -43,7 +43,7 @@ public class VerificationToken {
 
     public void updateToken(final String token) {
         this.token = token;
-        this.expiryDate = calculateExpiryDate(EXPIRATION);
+        this.expiryDate = calculateExpiryDate(EXPIRATION_TIME);
     }
 
     public Long getId() {

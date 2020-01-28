@@ -30,12 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
-    public WebSecurityConfig(MyUserDetailsService userDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+    public WebSecurityConfig(
+            MyUserDetailsService userDetailsService,
+            JwtAuthenticationEntryPoint unauthorizedHandler) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
     }
 
-    public WebSecurityConfig(boolean disableDefaults, MyUserDetailsService userDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+    public WebSecurityConfig(
+            boolean disableDefaults,
+            MyUserDetailsService userDetailsService,
+            JwtAuthenticationEntryPoint unauthorizedHandler) {
         super(disableDefaults);
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
@@ -91,8 +96,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest().permitAll();
-//                .anyRequest().authenticated();
+                .anyRequest().authenticated();
+//                .anyRequest().permitAll();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

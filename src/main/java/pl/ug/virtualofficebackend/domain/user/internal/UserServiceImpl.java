@@ -1,6 +1,7 @@
 package pl.ug.virtualofficebackend.domain.user.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
@@ -12,17 +13,26 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User save(@Valid User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user);
     }
 
     public List<User> save(@Valid List<User> users) {
+        for(User user : users) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+
+        // XD
+
         return this.userRepository.saveAll(users);
     }
 

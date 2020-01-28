@@ -15,18 +15,22 @@ import java.util.Map;
 
 @Component
 public class JwtTokenProvider {
-
     private static final String SECRET = "SecretKeyToGenJWTs";
     private static final long EXPIRATION_TIME = 3000_000;
+
+    private UserRepository userRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public JwtTokenProvider(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public String generateToken(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
-        Long userIdLong = userRepository.findByUsername(user.getUsername())
+        long userIdLong = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User with name = " + user.getUsername() + " not found")).getId();
         String userId = Long.toString(userIdLong);
 

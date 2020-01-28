@@ -11,7 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ug.virtualofficebackend.domain.security.boundary.LoginDto;
+import pl.ug.virtualofficebackend.domain.security.boundary.RoleService;
 import pl.ug.virtualofficebackend.domain.security.boundary.UserSecurityService;
+import pl.ug.virtualofficebackend.domain.security.entity.Role;
 import pl.ug.virtualofficebackend.domain.security.internal.config.JwtTokenProvider;
 import pl.ug.virtualofficebackend.domain.security.internal.exception.UserDtoValidationException;
 import pl.ug.virtualofficebackend.domain.security.internal.exception.WrongTokenException;
@@ -38,6 +40,7 @@ import java.util.stream.Collectors;
  * "matchingPassword": "123",
  * "email": "asd3@gmail.com",
  * "country":"country3"
+ * "office": { "id": "1" }
  * }
  * <p>
  * jeśli uda się zarejestrować, zwraca token w formacie: Bearer WŁAŚCIWY_TOKEN
@@ -63,23 +66,32 @@ public class AuthController {
     private JwtTokenProvider tokenProvider;
     private AuthValidationErrorService authValidationErrorService;
     private AuthenticationManager authenticationManager;
+    private RoleService roleService;
 
     @Autowired
-    public AuthController(UserSecurityService userSecurityService, JwtTokenProvider tokenProvider, AuthValidationErrorService authValidationErrorService, AuthenticationManager authenticationManager) {
+    public AuthController(
+            UserSecurityService userSecurityService,
+            JwtTokenProvider tokenProvider,
+            AuthValidationErrorService authValidationErrorService,
+            AuthenticationManager authenticationManager,
+            RoleService roleService) {
         this.userSecurityService = userSecurityService;
         this.tokenProvider = tokenProvider;
         this.authValidationErrorService = authValidationErrorService;
         this.authenticationManager = authenticationManager;
+        this.roleService = roleService;
     }
 
     @CrossOrigin
     @PostMapping("/login")
-    @ApiOperation(value = "Authenticate user with login and password. " +
-            "Returns Bearer Token if correct, otherwise print exception message.")
+    @ApiOperation(value = "Authenticate user with login and password. Returns Bearer Token if correct, otherwise print exception message.")
     public String authenticateUser(@Valid @RequestBody LoginDto loginDto, BindingResult result) {
         authValidationErrorService.validateFromBindingResult(result);
+
         Authentication authentication = createAuthentication(loginDto);
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         return createJwtToken(authentication);
     }
 
@@ -96,36 +108,54 @@ public class AuthController {
         return "Bearer " + tokenProvider.generateToken(authentication);
     }
 
+    /*
+        This method always creates admin account..
+     */
+
     @CrossOrigin
     @PostMapping("/registration")
-    @ApiOperation(value = "Creates user account. " +
-            "Returns Bearer Token if everything was correct, otherwise print exception message.")
+    @ApiOperation(value = "Creates user account. Returns Bearer Token if everything was correct, otherwise print exception message.")
     public String registerUserAccount(@RequestBody UserDto accountDto) throws UserDtoValidationException {
+        if(this.roleService.getAll().size() == 0) {
+            System.out.println("Add roles");
+
+            this.roleService.save(new Role("ADMIN"));
+            this.roleService.save(new Role("MANAGER"));
+            this.roleService.save(new Role("USER"));
+        }
+
         System.out.println("Registering user account with information: " + accountDto);
+
         userSecurityService.registerNewUserAccount(accountDto);
+
         Authentication authentication = createAuthentication(new LoginDto(accountDto.getUsername(), accountDto.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         return createJwtToken(authentication);
     }
 
     @GetMapping("/registrationConfirm")
     public void confirmRegistration(@RequestParam("token") final String token) throws WrongTokenException {
         userSecurityService.validateVerificationToken(token);
+
         final User user = userSecurityService.getUser(token);
+
         authWithoutPassword(user);
     }
 
     private void authWithoutPassword(User user) {
         List<String> role = new ArrayList<>();
+
         role.add(user.getRole().getName());
+
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, getAuthorities(role));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     private List<GrantedAuthority> getAuthorities(List<String> roles) {
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     //TEST ENDPOINT

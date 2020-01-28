@@ -20,4 +20,5 @@ public class AuthValidationErrorService {
             throw new BindingResultException(errorMap);
         }
     }
+
 }
