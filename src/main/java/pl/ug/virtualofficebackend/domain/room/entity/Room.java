@@ -1,7 +1,7 @@
 package pl.ug.virtualofficebackend.domain.room.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.ug.virtualofficebackend.common.validator.LocationCheck;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.roomType.entity.RoomType;
 
@@ -11,9 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "room")
-@LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
-        x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
-        message = "Invalid location. ")
 public class Room {
     private long id;
     private String name;
@@ -106,8 +103,9 @@ public class Room {
         this.type = type;
     }
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
+    @JsonProperty(value = "office")
     public Office getOffice() {
         return office;
     }

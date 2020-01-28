@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.user.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 
@@ -41,4 +42,9 @@ public class UserServiceImpl implements UserService {
     public void delete(long id) {
         this.userRepository.deleteById(id);
     }
+
+    public List<User> getByOffice(Office office) {
+        return this.userRepository.findAllByOffice(office);
+    }
+
 }

@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Bełcz Door",
+        "rotation": "WEST",
+        "y1Position": 150,
+        "x1Position": 500,
+        "type": {
+            "id": "1"
+        },
+        "office": {
+            "id": "1"
+        }
+    },
+    {
+        "name": "Prezes Door",
+        "rotation": "WEST",
+        "y1Position": 280,
+        "x1Position": 600,
+        "type": {
+            "id": "1"
+        },
+        "office": {
+            "id": "1"
+        }
+    },
+    {
+        "name": "Junior Door",
+        "rotation": "WEST",
+        "y1Position": 500,
+        "x1Position": 500,
+        "type": {
+            "id": "1"
+        },
+        "office": {
+            "id": "1"
+        }
+    },
+    {
+        "name": "Conference Door",
+        "rotation": "WEST",
+        "y1Position": 820,
+        "x1Position": 500,
+        "type": {
+            "id": "1"
+        },
+        "office": {
+            "id": "1"
+        }
+    },
+    {
+        "name": "Maniuś",
+        "rotation": "WEST",
+        "y1Position": 820,
+        "x1Position": 600,
+        "type": {
+            "id": "1"
+        },
+        "office": {
+            "id": "1"
+        }
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Bełcz Room",
+        "capacity": 14,
+        "x1Position": 0,
+        "y1Position": 0,
+        "x2Position": 500,
+        "y2Position": 400,
+        "type" : {
+            "id" : 1
+        },
+        "office" : {
+            "id" : 1
+        }
+    },
+    {
+        "name": "Prezes Room",
+        "capacity": 12,
+        "x1Position": 0,
+        "y1Position": 400,
+        "x2Position": 500,
+        "y2Position": 700,
+        "type" : {
+            "id" : 2
+        },
+        "office" : {
+            "id" : 1
+        }
+    },
+    {
+        "name": "Junior Room",
+        "capacity": 10,
+        "x1Position": 0,
+        "y1Position": 700,
+        "x2Position": 500,
+        "y2Position": 1000,
+        "type" : {
+            "id" : 1
+        },
+        "office" : {
+            "id" : 1
+        }
+    },
+    {
+        "name": "Conference Room",
+        "capacity": 12,
+        "x1Position": 600,
+        "y1Position": 0,
+        "x2Position": 1000,
+        "y2Position": 400,
+        "type" : {
+            "id" : 3
+        },
+        "office" : {
+            "id" : 1
+        }
+    },
+    {
+        "name": "Open space",
+        "capacity": 11,
+        "x1Position": 600,
+        "y1Position": 500,
+        "x2Position": 1000,
+        "y2Position": 1000,
+        "type" : {
+            "id" : 4
+        },
+        "office" : {
+            "id" : 1
+        }
+    }
+]

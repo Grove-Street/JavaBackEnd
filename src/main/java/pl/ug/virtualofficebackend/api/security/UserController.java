@@ -3,6 +3,7 @@ package pl.ug.virtualofficebackend.api.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 
@@ -47,6 +48,13 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
     public User get(@PathVariable Long id) {
         return this.userService.get(id);
+    }
+
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/{id}/office", method = RequestMethod.GET, produces = {"application/json"})
+    public Office getOffice(@PathVariable Long id) {
+        return this.userService.get(id).getOffice();
     }
 
     @CrossOrigin

@@ -79,7 +79,8 @@ public class Office {
         this.rooms = rooms;
     }
 
-    @OneToMany(mappedBy = "office", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "office")
     public List<Workstation> getWorkstations() {
         return workstations;
     }

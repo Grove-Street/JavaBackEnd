@@ -1,8 +1,8 @@
 package pl.ug.virtualofficebackend.domain.decoration.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.ug.virtualofficebackend.common.model.Rotation;
-import pl.ug.virtualofficebackend.common.validator.LocationCheck;
 import pl.ug.virtualofficebackend.domain.decorationType.entity.DecorationType;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
@@ -11,28 +11,21 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "decoration")
-@LocationCheck(x1PositionFieldName = "x1Position", y1PositionFieldName = "y1Position",
-        x2PositionFieldName = "x2Position", y2PositionFieldName = "y2Position",
-        message = "Invalid location. ")
 public class Decoration {
     private long id;
     private String name;
 
     /*
-        Starts at (x1, y1)
-        Ends at (x2, y2)
-
-        Every Decoration is displayed as square.
+        Placed at (x1, y1)
      */
 
     //region Position
     private int x1Position;
     private int y1Position;
-    private int x2Position;
-    private int y2Position;
+
+    private Rotation rotation = Rotation.NORTH;
     //endregion
 
-    private Rotation rotation;
     private DecorationType type;
     private Office office;
 
@@ -81,22 +74,6 @@ public class Decoration {
         this.y1Position = y1Position;
     }
 
-    public int getX2Position() {
-        return x2Position;
-    }
-
-    public void setX2Position(int x2Position) {
-        this.x2Position = x2Position;
-    }
-
-    public int getY2Position() {
-        return y2Position;
-    }
-
-    public void setY2Position(int y2Position) {
-        this.y2Position = y2Position;
-    }
-
     @Enumerated(EnumType.STRING)
     public Rotation getRotation() {
         return rotation;
@@ -106,8 +83,9 @@ public class Decoration {
         this.rotation = rotation;
     }
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
+    @JsonProperty(value = "office")
     public Office getOffice() {
         return office;
     }

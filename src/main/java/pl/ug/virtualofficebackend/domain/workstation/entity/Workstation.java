@@ -33,11 +33,12 @@ public class Workstation {
     private int x2Position;
     private int y2Position;
 
-    private Rotation rotation;
+    private Rotation rotation = Rotation.NORTH;
     //endregion
 
     private User user;
     private Office office;
+
     private List<Item> itemList;
 
     @Id
