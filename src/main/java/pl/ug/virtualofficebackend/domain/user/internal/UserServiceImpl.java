@@ -45,7 +45,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public User put(long id, @Valid User user) {
-        user.setId(id);
+        User toUpdate = this.userRepository.findById(id).orElse(null);
+
+        if(toUpdate == null) {
+            return null;
+        }
+
+        if(user.getPassword() == null) {
+            user.setPassword(toUpdate.getPassword());
+        }
+
         return this.userRepository.save(user);
     }
 

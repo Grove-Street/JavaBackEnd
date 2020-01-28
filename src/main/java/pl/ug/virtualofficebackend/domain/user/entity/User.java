@@ -117,7 +117,6 @@ public class User {
 
     @JsonIgnore
     @JsonProperty(value = "password")
-    @NotBlank(message = "Password is mandatory")
     public String getPassword() {
         return password;
     }
