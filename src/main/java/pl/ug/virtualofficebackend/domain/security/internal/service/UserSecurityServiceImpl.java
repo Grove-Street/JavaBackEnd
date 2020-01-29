@@ -73,6 +73,9 @@ public class UserSecurityServiceImpl implements UserSecurityService {
 
     @Override
     public User getUser(String verificationToken) {
+        if (verificationToken.startsWith("Bearer ")) {
+            verificationToken = verificationToken.replace("Bearer ", "");
+        }
         return tokenRepository.findByToken(verificationToken).getUser();
     }
 

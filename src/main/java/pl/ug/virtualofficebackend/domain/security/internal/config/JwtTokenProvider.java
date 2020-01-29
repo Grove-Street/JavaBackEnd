@@ -6,6 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import pl.ug.virtualofficebackend.domain.security.entity.VerificationToken;
+import pl.ug.virtualofficebackend.domain.security.internal.repository.TokenRepository;
+import pl.ug.virtualofficebackend.domain.user.entity.User;
 import pl.ug.virtualofficebackend.domain.user.internal.UserRepository;
 
 import java.util.Date;
@@ -20,27 +23,32 @@ public class JwtTokenProvider {
     private static final long EXPIRATION_TIME = 3000_000;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     public String generateToken(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
-        Long userIdLong = userRepository.findByUsername(user.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User with name = " + user.getUsername() + " not found")).getId();
+        User foundUser = userRepository.findByUsername(user.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User with name = " + user.getUsername() + " not found"));
+        Long userIdLong = foundUser.getId();
         String userId = Long.toString(userIdLong);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", userId);
         claims.put("username", user.getUsername());
 
-        return Jwts.builder()
+        String token =  Jwts.builder()
                 .setSubject(userId)
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
+        tokenRepository.save(new VerificationToken(token, foundUser));
+        return token;
     }
 
     public boolean validateToken(String token) {

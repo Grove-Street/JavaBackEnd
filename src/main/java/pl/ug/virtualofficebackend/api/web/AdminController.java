@@ -1,6 +1,8 @@
 package pl.ug.virtualofficebackend.api.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,16 +10,19 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.office.internal.OfficeServiceImpl;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
+import pl.ug.virtualofficebackend.domain.security.boundary.UserSecurityService;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 import pl.ug.virtualofficebackend.domain.user.internal.UserServiceImpl;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 import pl.ug.virtualofficebackend.domain.workstation.internal.WorkstationServiceImpl;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -29,9 +34,15 @@ public class AdminController {
     @Autowired
     UserServiceImpl userService;
 
+    @Autowired
+    private UserSecurityService userSecurityService;
+
 
     @GetMapping("/admin")
-    public String start(Model model) {
+    public String start(Model model, @RequestHeader(name="Authorization") String token) {
+
+        User user = userSecurityService.getUser(token);
+        System.out.println(user);
 
         Office newOffice = new Office();
 

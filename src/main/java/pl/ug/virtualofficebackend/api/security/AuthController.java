@@ -129,10 +129,10 @@ public class AuthController {
     }
 
     //TEST ENDPOINT
-    @GetMapping("/admin")
-    public String helloAdmin() {
-        return "Hello admin";
-    }
+//    @GetMapping("/admin")
+//    public String helloAdmin() {
+//        return "Hello admin";
+//    }
 
     //TEST ENDPOINT
     @GetMapping("/user")
