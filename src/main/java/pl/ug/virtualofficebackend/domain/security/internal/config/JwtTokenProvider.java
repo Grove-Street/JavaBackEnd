@@ -18,13 +18,17 @@ import java.util.Map;
 
 @Component
 public class JwtTokenProvider {
-
     private static final String SECRET = "SecretKeyToGenJWTs";
     private static final long EXPIRATION_TIME = 3000_000;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
+
+    private UserRepository userRepository;
     private TokenRepository tokenRepository;
+
+    @Autowired
+    public JwtTokenProvider (UserRepository userRepository, TokenRepository tokenRepository) {
+        this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
+    }
 
     public String generateToken(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();

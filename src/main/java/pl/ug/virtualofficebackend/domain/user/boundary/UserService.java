@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.user.boundary;
 
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.user.entity.User;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public interface UserService {
 
     // DELETE
     void delete(long id);
+
+    List<User> getByOffice(Office office);
+
+    User getByUsername(String username);
+
+    List<User> getUsersWithoutWorkstation(Office office);
 
 }

@@ -1,13 +1,21 @@
 package pl.ug.virtualofficebackend.api.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
-import pl.ug.virtualofficebackend.domain.user.entity.User;
+import java.util.List;
 
 import javax.validation.Valid;
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
+import pl.ug.virtualofficebackend.domain.user.entity.User;
 
 @RestController
 @RequestMapping(value = "/api/user")
@@ -47,6 +55,13 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
     public User get(@PathVariable Long id) {
         return this.userService.get(id);
+    }
+
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/get/{username}", method = RequestMethod.GET, produces = {"application/json"})
+    public User getByUsername(@PathVariable String username) {
+        return this.userService.getByUsername(username);
     }
 
     @CrossOrigin

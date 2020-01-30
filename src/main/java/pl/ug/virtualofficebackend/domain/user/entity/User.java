@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.ug.virtualofficebackend.common.model.Status;
 import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.security.entity.Role;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
@@ -25,6 +26,8 @@ public class User {
     private Role role;
     private Workstation workstation;
     private Office office;
+
+    private Status status = Status.OFFLINE;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,9 +104,7 @@ public class User {
         this.workstation = workstation;
     }
 
-    @ManyToOne
-    @JsonIgnore
-    @JsonProperty(value = "office")
+    @ManyToOne(fetch = FetchType.EAGER)
     public Office getOffice() {
         return office;
     }
@@ -114,7 +115,6 @@ public class User {
 
     @JsonIgnore
     @JsonProperty(value = "password")
-    @NotBlank(message = "Password is mandatory")
     public String getPassword() {
         return password;
     }
@@ -130,5 +130,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

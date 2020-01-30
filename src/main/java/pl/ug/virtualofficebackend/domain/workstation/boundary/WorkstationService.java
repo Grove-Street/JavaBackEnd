@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.workstation.boundary;
 
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface WorkstationService {
 
     // DELETE
     void delete(long id);
+
+    List<Workstation> getByOffice(Office office);
 
 }

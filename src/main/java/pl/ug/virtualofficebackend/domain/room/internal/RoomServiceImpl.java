@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.room.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.room.boundary.RoomService;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
 
@@ -41,4 +42,9 @@ public class RoomServiceImpl implements RoomService {
     public void delete(long id) {
         this.roomRepository.deleteById(id);
     }
+
+    public List<Room> getByOffice(Office office) {
+        return this.roomRepository.findAllByOffice(office);
+    }
+
 }

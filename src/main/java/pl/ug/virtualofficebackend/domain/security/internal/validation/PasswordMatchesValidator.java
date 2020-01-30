@@ -5,8 +5,7 @@ import pl.ug.virtualofficebackend.domain.user.boundary.UserDto;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PasswordMatchesValidator
-        implements ConstraintValidator<PasswordMatches, Object> {
+public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
@@ -17,4 +16,5 @@ public class PasswordMatchesValidator
         UserDto user = (UserDto) obj;
         return user.getPassword().equals(user.getMatchingPassword());
     }
+
 }

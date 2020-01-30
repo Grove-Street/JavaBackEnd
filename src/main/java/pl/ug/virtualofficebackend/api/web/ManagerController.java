@@ -1,25 +1,28 @@
 package pl.ug.virtualofficebackend.api.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.ug.virtualofficebackend.domain.user.entity.User;
-import pl.ug.virtualofficebackend.domain.user.internal.UserServiceImpl;
-import pl.ug.virtualofficebackend.domain.workstation.internal.WorkstationServiceImpl;
 
-import javax.validation.Valid;
+import pl.ug.virtualofficebackend.domain.user.boundary.UserService;
+import pl.ug.virtualofficebackend.domain.user.entity.User;
+import pl.ug.virtualofficebackend.domain.workstation.boundary.WorkstationService;
 
 @Controller
 public class ManagerController {
+    private UserService userService;
+    private WorkstationService workstationService;
 
     @Autowired
-    UserServiceImpl userService;
-
-    @Autowired
-    WorkstationServiceImpl workstationService;
+    public ManagerController(UserService userService, WorkstationService workstationService) {
+        this.userService = userService;
+        this.workstationService = workstationService;
+    }
 
     private User getUser() {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -29,8 +32,6 @@ public class ManagerController {
 
     @GetMapping("/manager")
     public String panel(Model model) {
-
-
         model.addAttribute("users", userService.getAll());
         model.addAttribute("newUser", new User());
         model.addAttribute("workstations", workstationService.getAll());

@@ -1,6 +1,7 @@
 package pl.ug.virtualofficebackend.domain.decoration.boundary;
 
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface DecorationService {
 
     // DELETE
     void delete(long id);
+
+    List<Decoration> getByOffice(Office office);
 
 }

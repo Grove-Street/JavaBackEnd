@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "POST Offices",
+			"name": "Registrate Admin",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -19,7 +19,45 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n\t{\n\t\t\"name\" : \"Biuro w Polsce\",\n\t\t\"lon\" : \"54.349200\",\n\t\t\"lat\" : \"18.643672\"\n\t},\n\t{\n\t\t\"name\" : \"Biuro w Chinach\",\n\t\t\"lon\" : \"30.585780\",\n\t\t\"lat\" : \"114.301219\"\n\t}\n]",
+					"raw": "{\r\n    \"name\": \"Petrick\",\r\n    \"surname\": \"Chuck\",\r\n    \"username\": \"pchuck\",\r\n    \"password\": \"123\",\r\n    \"matchingPassword\": \"123\",\r\n    \"email\": \"pchuck@virben.com\",\r\n    \"country\": \" Falkland Islands (Malvinas)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{address}}/registration",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Offices",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"name\" : \"Biuro w Polsce\",\n\t\t\"lat\" : \"54.349200\",\n\t\t\"lon\" : \"18.643672\"\n\t},\n\t{\n\t\t\"name\" : \"Biuro w Chinach\",\n\t\t\"lat\" : \"30.585780\",\n\t\t\"lon\" : \"114.301219\"\n\t}\n]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,41 +80,6 @@
 			"response": []
 		},
 		{
-			"name": "POST Roles",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n\t{\n\t\t\"name\" : \"Administrator\"\n\t},\n\t{\n\t\t\"name\" : \"Manager\"\n\t},\n\t{\n\t\t\"name\" : \"User\"\n\t}\n]",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{address}}/api/role/add",
-					"host": [
-						"{{address}}"
-					],
-					"path": [
-						"api",
-						"role",
-						"add"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "POST Users",
 			"request": {
 				"method": "POST",
@@ -85,6 +88,11 @@
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
@@ -121,6 +129,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -147,18 +160,160 @@
 			"response": []
 		},
 		{
-			"name": "GET Offices",
+			"name": "POST RoomTypes",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"name\" : \"Dev Room\"\r\n    },\r\n    {\r\n        \"name\" : \"Boss Room\"\r\n    },\r\n    {\r\n        \"name\" : \"Conference Room\"\r\n    },\r\n    {\r\n        \"name\" : \"Kitchen\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{address}}/api/office",
+					"raw": "{{address}}/api/roomType/add",
 					"host": [
 						"{{address}}"
 					],
 					"path": [
 						"api",
-						"office"
+						"roomType",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Rooms",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Belcz Room\",\n        \"capacity\": 14,\n        \"x1Position\": 0,\n        \"y1Position\": 0,\n        \"x2Position\": 500,\n        \"y2Position\": 400,\n        \"type\": {\n            \"id\": 1\n        },\n        \"office\": {\n            \"id\": 1\n        }\n    },\n    {\n        \"name\": \"Prezes Room\",\n        \"capacity\": 12,\n        \"x1Position\": 0,\n        \"y1Position\": 400,\n        \"x2Position\": 500,\n        \"y2Position\": 700,\n        \"type\": {\n            \"id\": 2\n        },\n        \"office\": {\n            \"id\": 1\n        }\n    },\n    {\n        \"name\": \"Junior Room\",\n        \"capacity\": 10,\n        \"x1Position\": 0,\n        \"y1Position\": 700,\n        \"x2Position\": 500,\n        \"y2Position\": 1000,\n        \"type\": {\n            \"id\": 1\n        },\n        \"office\": {\n            \"id\": 1\n        }\n    },\n    {\n        \"name\": \"Conference Room\",\n        \"capacity\": 12,\n        \"x1Position\": 600,\n        \"y1Position\": 0,\n        \"x2Position\": 1000,\n        \"y2Position\": 400,\n        \"type\": {\n            \"id\": 3\n        },\n        \"office\": {\n            \"id\": 1\n        }\n    },\n    {\n        \"name\": \"Open space\",\n        \"capacity\": 11,\n        \"x1Position\": 600,\n        \"y1Position\": 500,\n        \"x2Position\": 1000,\n        \"y2Position\": 1000,\n        \"type\": {\n            \"id\": 4\n        },\n        \"office\": {\n            \"id\": 1\n        }\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{address}}/api/room/add",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"api",
+						"room",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST DecorationTypes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"name\" : \"Door\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{address}}/api/decorationType/add",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"api",
+						"decorationType",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Decorations",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"name\": \"Belcz Door\",\r\n        \"rotation\": \"WEST\",\r\n        \"y1Position\": 150,\r\n        \"x1Position\": 500,\r\n        \"type\": {\r\n            \"id\": \"1\"\r\n        },\r\n        \"office\": {\r\n            \"id\": \"1\"\r\n        }\r\n    },\r\n    {\r\n        \"name\": \"Prezes Door\",\r\n        \"rotation\": \"WEST\",\r\n        \"y1Position\": 280,\r\n        \"x1Position\": 600,\r\n        \"type\": {\r\n            \"id\": \"1\"\r\n        },\r\n        \"office\": {\r\n            \"id\": \"1\"\r\n        }\r\n    },\r\n    {\r\n        \"name\": \"Junior Door\",\r\n        \"rotation\": \"WEST\",\r\n        \"y1Position\": 500,\r\n        \"x1Position\": 500,\r\n        \"type\": {\r\n            \"id\": \"1\"\r\n        },\r\n        \"office\": {\r\n            \"id\": \"1\"\r\n        }\r\n    },\r\n    {\r\n        \"name\": \"Conference Door\",\r\n        \"rotation\": \"WEST\",\r\n        \"y1Position\": 820,\r\n        \"x1Position\": 500,\r\n        \"type\": {\r\n            \"id\": \"1\"\r\n        },\r\n        \"office\": {\r\n            \"id\": \"1\"\r\n        }\r\n    },\r\n    {\r\n        \"name\": \"Maniuś\",\r\n        \"rotation\": \"WEST\",\r\n        \"y1Position\": 820,\r\n        \"x1Position\": 600,\r\n        \"type\": {\r\n            \"id\": \"1\"\r\n        },\r\n        \"office\": {\r\n            \"id\": \"1\"\r\n        }\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{address}}/api/decoration/add",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"api",
+						"decoration",
+						"add"
 					]
 				}
 			},

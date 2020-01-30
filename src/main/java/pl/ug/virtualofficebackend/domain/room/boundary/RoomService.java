@@ -1,5 +1,6 @@
 package pl.ug.virtualofficebackend.domain.room.boundary;
 
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.room.entity.Room;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface RoomService {
 
     // DELETE
     void delete(long id);
+
+    List<Room> getByOffice(Office office);
 
 }

@@ -2,6 +2,7 @@ package pl.ug.virtualofficebackend.domain.workstation.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 import pl.ug.virtualofficebackend.domain.workstation.boundary.WorkstationService;
 import pl.ug.virtualofficebackend.domain.workstation.entity.Workstation;
 
@@ -34,6 +35,16 @@ public class WorkstationServiceImpl implements WorkstationService {
     }
 
     public Workstation put(long id, @Valid Workstation workstation) {
+        Workstation toUpdate = this.workstationRepository.findById(id).orElse(null);
+
+        if(toUpdate == null) {
+            return null;
+        }
+
+        if(workstation.getOffice() == null) {
+            workstation.setOffice(toUpdate.getOffice());
+        }
+
         workstation.setId(id);
         return this.workstationRepository.save(workstation);
     }
@@ -41,4 +52,9 @@ public class WorkstationServiceImpl implements WorkstationService {
     public void delete(long id) {
         this.workstationRepository.deleteById(id);
     }
+
+    public List<Workstation> getByOffice(Office office) {
+        return this.workstationRepository.findAllByOffice(office);
+    }
+
 }

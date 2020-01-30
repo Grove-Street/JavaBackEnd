@@ -16,11 +16,17 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String name;
+
     @JsonBackReference
-    @OneToMany(mappedBy = "role",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "role", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<User> users;
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public long getId() {
         return id;

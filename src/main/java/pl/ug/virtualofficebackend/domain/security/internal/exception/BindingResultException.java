@@ -17,4 +17,5 @@ public class BindingResultException extends RuntimeException {
     public void setErrors(Map<String, String> errors) {
         this.errors = errors;
     }
+
 }

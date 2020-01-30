@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.ug.virtualofficebackend.domain.decoration.boundary.DecorationService;
 import pl.ug.virtualofficebackend.domain.decoration.entity.Decoration;
+import pl.ug.virtualofficebackend.domain.office.entity.Office;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,5 +41,9 @@ public class DecorationServiceImpl implements DecorationService {
 
     public void delete(long id) {
         this.decorationRepository.deleteById(id);
+    }
+
+    public List<Decoration> getByOffice(Office office) {
+        return this.decorationRepository.findAllByOffice(office);
     }
 }

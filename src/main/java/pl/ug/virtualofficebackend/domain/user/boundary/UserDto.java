@@ -1,49 +1,30 @@
 package pl.ug.virtualofficebackend.domain.user.boundary;
 
-
-import pl.ug.virtualofficebackend.domain.security.internal.validation.ValidEmail;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class UserDto {
-    @NotNull
-    @NotEmpty
     private String name;
-
-    @NotNull
-    @NotEmpty
     private String surname;
-
-    @NotNull
-    @NotEmpty
     private String username;
-
-    @NotNull
-    @NotEmpty
     private String password;
-
     private String matchingPassword;
-
-    @NotNull
-    @NotEmpty
-    @ValidEmail
     private String email;
-
-    @NotNull
-    @NotEmpty
     private String country;
-
     private String picUrl;
-
     private LocalDateTime joined;
 
     public UserDto() {
     }
 
-    public UserDto(@NotNull @NotEmpty String username, @NotNull @NotEmpty String name, @NotNull @NotEmpty String surname,
-                   @NotNull @NotEmpty String password, String matchingPassword, @NotNull @NotEmpty String email) {
+    public UserDto(
+            @NotBlank String username,
+            @NotBlank String name,
+            @NotBlank String surname,
+            @NotBlank String password,
+            String matchingPassword,
+            @NotBlank String email) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -52,8 +33,14 @@ public class UserDto {
         this.email = email;
     }
 
-    public UserDto(@NotNull @NotEmpty String username, @NotNull @NotEmpty String name, @NotNull @NotEmpty String surname,
-                   @NotNull @NotEmpty String password, String matchingPassword, @NotNull @NotEmpty String email, String picUrl) {
+    public UserDto(
+            @NotBlank String username,
+            @NotBlank String name,
+            @NotBlank String surname,
+            @NotBlank String password,
+            String matchingPassword,
+            @NotBlank String email,
+            String picUrl) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -63,6 +50,7 @@ public class UserDto {
         this.picUrl = picUrl;
     }
 
+    @NotBlank
     public String getName() {
         return name;
     }
@@ -71,6 +59,7 @@ public class UserDto {
         this.name = name;
     }
 
+    @NotBlank
     public String getSurname() {
         return surname;
     }
@@ -79,6 +68,7 @@ public class UserDto {
         this.surname = surname;
     }
 
+    @NotBlank
     public String getUsername() {
         return username;
     }
@@ -87,7 +77,7 @@ public class UserDto {
         this.username = username;
     }
 
-
+    @NotBlank
     public String getPassword() {
         return password;
     }
@@ -104,6 +94,8 @@ public class UserDto {
         this.matchingPassword = matchingPassword;
     }
 
+    @Email
+    @NotBlank
     public String getEmail() {
         return email;
     }
